@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Agent Configuration</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f1117;
+            /* Dark background */
+            --card-bg: #1e212b;
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --accent: #3b82f6;
+            /* Blue accent */
+            --accent-hover: #2563eb;
+            --border: #2d313f;
+            --input-bg: #13151c;
+            --success: #10b981;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            padding: 40px 20px;
+        }
+
+        header {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0 0 10px 0;
+            background: linear-gradient(to right, #60a5fa, #a855f7);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .section {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="url"],
+        select {
+            width: 100%;
+            padding: 10px 12px;
+            background-color: var(--input-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+
+        .toggle-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--accent);
+        }
+
+        .actions {
+            position: sticky;
+            bottom: 20px;
+            background-color: rgba(30, 33, 43, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            padding: 10px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background-color: var(--success);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            opacity: 0;
+            transition: transform 0.3s, opacity 0.3s;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .toast.error {
+            background-color: #ef4444;
+        }
+
+        .helper-text {
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Voice Agent Config</h1>
+            <p class="subtitle">Configure your Voice Agent settings visually</p>
+        </header>
+
+        <form id="configForm">
+            <!-- Visual Configuration -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">🎨 Visuals</h2>
+                </div>
+                <div class="form-group">
+                    <label for="VOICE_DISPLAY_MODE">Display Mode</label>
+                    <select id="VOICE_DISPLAY_MODE" name="VOICE_DISPLAY_MODE">
+                        <option value="orb">Orb Only (Default)</option>
+                        <option value="orb_text">Orb + Text Overlay</option>
+                        <option value="text">Text Only</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- LLM Configuration -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">🧠 LLM Configuration</h2>
+                </div>
+                <div class="form-group">
+                    <label for="VOICE_AGENT_LLM_PROVIDER">Provider</label>
+                    <select id="VOICE_AGENT_LLM_PROVIDER" name="VOICE_AGENT_LLM_PROVIDER">
+                        <option value="openai">OpenAI</option>
+                        <option value="groq">Groq</option>
+                        <option value="openrouter">OpenRouter</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="VOICE_AGENT_MODEL">Model Name</label>
+                    <input type="text" id="VOICE_AGENT_MODEL" name="VOICE_AGENT_MODEL"
+                        placeholder="e.g. gpt-4o, llama-3.3-70b-versatile">
+                    <p class="helper-text">Enter the model ID supported by your chosen provider.</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="OPENAI_API_KEY">OpenAI API Key</label>
+                    <input type="password" id="OPENAI_API_KEY" name="OPENAI_API_KEY" placeholder="sk-proj-...">
+                </div>
+                <div class="form-group">
+                    <label for="GROQ_API_KEY">Groq API Key</label>
+                    <input type="password" id="GROQ_API_KEY" name="GROQ_API_KEY" placeholder="gsk_...">
+                </div>
+                <div class="form-group">
+                    <label for="OPENROUTER_API_KEY">OpenRouter API Key</label>
+                    <input type="password" id="OPENROUTER_API_KEY" name="OPENROUTER_API_KEY" placeholder="sk-or-...">
+                </div>
+            </div>
+
+            <!-- LiveKit Configuration -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">📡 LiveKit Configuration</h2>
+                </div>
+                <div class="form-group">
+                    <label for="LIVEKIT_URL">LiveKit URL</label>
+                    <input type="url" id="LIVEKIT_URL" name="LIVEKIT_URL"
+                        placeholder="wss://your-project.livekit.cloud">
+                </div>
+                <div class="form-group">
+                    <label for="LIVEKIT_API_KEY">LiveKit API Key</label>
+                    <input type="password" id="LIVEKIT_API_KEY" name="LIVEKIT_API_KEY">
+                </div>
+                <div class="form-group">
+                    <label for="LIVEKIT_API_SECRET">LiveKit API Secret</label>
+                    <input type="password" id="LIVEKIT_API_SECRET" name="LIVEKIT_API_SECRET">
+                </div>
+            </div>
+
+            <!-- Speech Services -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">🗣️ Speech Services</h2>
+                </div>
+
+                <h3>Speech-to-Text (STT)</h3>
+                <div class="form-group">
+                    <label for="ASSEMBLYAI_API_KEY">AssemblyAI API Key</label>
+                    <input type="password" id="ASSEMBLYAI_API_KEY" name="ASSEMBLYAI_API_KEY">
+                </div>
+                <div class="form-group">
+                    <label for="ASSEMBLYAI_LANGUAGE">Language Code</label>
+                    <input type="text" id="ASSEMBLYAI_LANGUAGE" name="ASSEMBLYAI_LANGUAGE" placeholder="en" value="en">
+                    <p class="helper-text">e.g. en, es, fr, de</p>
+                </div>
+
+                <h3 style="margin-top: 20px;">Text-to-Speech (TTS)</h3>
+                <div class="form-group">
+                    <label for="RESEMBLE_API_KEY">Resemble.ai API Key</label>
+                    <input type="password" id="RESEMBLE_API_KEY" name="RESEMBLE_API_KEY">
+                </div>
+                <div class="form-group">
+                    <label for="RESEMBLE_VOICE_ID">Resemble Voice ID</label>
+                    <input type="text" id="RESEMBLE_VOICE_ID" name="RESEMBLE_VOICE_ID">
+                </div>
+                <div class="form-group">
+                    <label for="RESEMBLE_STREAM_URL">Resemble Stream URL</label>
+                    <input type="url" id="RESEMBLE_STREAM_URL" name="RESEMBLE_STREAM_URL"
+                        value="https://f.cluster.resemble.ai/stream">
+                </div>
+            </div>
+
+            <!-- Internal Integrations -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">🔌 ChatRAG Integration</h2>
+                </div>
+                <div class="form-group">
+                    <label for="CHATRAG_INTERNAL_API_URL">Internal RAG API URL</label>
+                    <input type="url" id="CHATRAG_INTERNAL_API_URL" name="CHATRAG_INTERNAL_API_URL"
+                        value="http://localhost:3000/api/internal/voice-rag">
+                </div>
+                <div class="form-group">
+                    <label for="CHATRAG_INTERNAL_API_KEY">Internal API Key</label>
+                    <input type="password" id="CHATRAG_INTERNAL_API_KEY" name="CHATRAG_INTERNAL_API_KEY">
+                </div>
+            </div>
+
+            <!-- Debugging -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">🛠️ Debugging</h2>
+                </div>
+                <div class="form-group toggle-group">
+                    <input type="checkbox" id="SINE_TEST_MODE" name="SINE_TEST_MODE">
+                    <label for="SINE_TEST_MODE" style="margin:0; cursor: pointer;">Enable Sine Wave Test Mode (Debug
+                        Audio)</label>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button type="submit" class="btn-primary">Save Changes</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="toast" class="toast">Configuration Saved!</div>
+
+    <script>
+        // Load config on startup
+        async function loadConfig() {
+            try {
+                const response = await fetch('/api/config');
+                const data = await response.json();
+                const config = data.config;
+
+                for (const [key, value] of Object.entries(config)) {
+                    const element = document.getElementById(key);
+                    if (element) {
+                        if (element.type === 'checkbox') {
+                            element.checked = value === 'true';
+                        } else {
+                            element.value = value;
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Failed to load config:', error);
+                showToast('Failed to load configuration', true);
+            }
+        }
+
+        // Save config
+        document.getElementById('configForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(e.target);
+            const config = {};
+
+            for (const [key, value] of formData.entries()) {
+                config[key] = value;
+            }
+
+            // Handle unchecked checkboxes
+            const checkboxes = e.target.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(cb => {
+                config[cb.name] = cb.checked ? 'true' : 'false';
+            });
+
+            try {
+                const response = await fetch('/api/config', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ config })
+                });
+
+                if (response.ok) {
+                    showToast('Configuration Saved Successfully!');
+                } else {
+                    const data = await response.json();
+                    showToast(data.error || 'Failed to save', true);
+                }
+            } catch (error) {
+                console.error('Error saving config:', error);
+                showToast('Error saving configuration', true);
+            }
+        });
+
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = isError ? 'toast error show' : 'toast show';
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Initialize
+        loadConfig();
+    </script>
+</body>
+
+</html>

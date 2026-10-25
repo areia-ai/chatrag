@@ -1,0 +1,11 @@
+{
+  "docDashboardReadOnlyDesc": "Enable read-only mode for the document dashboard.",
+  "adminAuthenticated": "Admin Authenticated",
+  "adminAuthenticatedDesc": "Admin settings are now available.",
+  "login": "Login",
+  "loggingIn": "Logging In...",
+  "loggingOut": "Logging Out...",
+  "logoutAdmin": "Logout Admin",
+  "adminPasswordRequired": "Admin password is required.",
+  "adminPasswordIncorrect": "Admin password incorrect."
+} 

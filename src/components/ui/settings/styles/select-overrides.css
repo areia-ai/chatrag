@@ -1,0 +1,94 @@
+/* Select Component Global Overrides for Settings Modal */
+
+/* Select portal optimizations */
+[data-radix-popper-content-wrapper] {
+  z-index: 9999 !important;
+  contain: layout style paint;
+}
+
+/* Select content styling */
+[data-radix-select-content] {
+  background-color: #EFE1D5 !important;
+  border-radius: 0.5rem !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+  
+  /* Performance optimizations */
+  contain: layout style paint;
+  will-change: transform, opacity;
+  transition: none !important;
+}
+
+.dark [data-radix-select-content] {
+  background-color: #2F2F2F !important;
+}
+
+[data-radix-select-viewport] {
+  padding: 8px !important;
+  transition: none !important;
+}
+
+/* Select item base styles */
+[data-radix-select-item] {
+  border-radius: 0.5rem !important;
+  margin: 2px 0 !important;
+  padding: 12px 16px !important;
+  position: relative !important;
+  color: #444 !important;
+  transition: background-color 0.15s ease !important;
+  
+  /* Performance: use transform for hover instead of background changes */
+  transform: translateZ(0);
+}
+
+.dark [data-radix-select-item] {
+  color: #E6E6E6 !important;
+}
+
+/* Select item hover state */
+[data-radix-select-item]:hover {
+  background-color: #FFE0D0 !important;
+}
+
+.dark [data-radix-select-item]:hover {
+  background-color: #424242 !important;
+}
+
+/* Selected item styling */
+[data-radix-select-item][data-state="checked"] {
+  color: #444 !important;
+  position: relative !important;
+}
+
+.dark [data-radix-select-item][data-state="checked"] {
+  color: #E6E6E6 !important;
+}
+
+/* Optimized check icon using CSS */
+[data-radix-select-item][data-state="checked"]::after {
+  content: "";
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  
+  /* Use CSS mask for better performance */
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+  background-color: #FF6417;
+}
+
+.dark [data-radix-select-item][data-state="checked"]::after {
+  background-color: #E6E6E6;
+}
+
+/* Reduce paint areas */
+[data-radix-select-trigger] {
+  contain: layout style paint;
+}

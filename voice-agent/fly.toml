@@ -1,0 +1,26 @@
+# fly.toml app configuration file for ChatRAG Voice Agent
+# See https://fly.io/docs/reference/configuration/
+
+app = 'chatrag-voice-agent'  # ⚠️ CHANGE THIS: Must be globally unique on Fly.io
+primary_region = 'iad'        # ⚠️ CHANGE THIS: Choose a region close to your users
+
+[build]
+  dockerfile = 'Dockerfile'
+
+# VM resources - most economical "always-on" option
+# 512MB RAM is recommended for Node.js apps to prevent OOM crashes
+[[vm]]
+  size = 'shared-cpu-1x'
+  memory = '512mb'
+  cpu_kind = 'shared'
+  cpus = 1
+
+# Worker process configuration - always restart on exit
+[[restart]]
+  policy = 'always'
+  processes = ['app']
+
+# Environment variables (non-secret values only)
+[env]
+  NODE_ENV = 'production'
+  ASSEMBLYAI_LANGUAGE = 'en'

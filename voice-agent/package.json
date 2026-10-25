@@ -1,0 +1,39 @@
+{
+    "name": "chatrag-voice-agent",
+    "version": "0.1.0",
+    "description": "Standalone Voice Agent for ChatRAG",
+    "main": "src/agent.ts",
+    "type": "module",
+    "scripts": {
+        "dev": "tsx watch src/agent.ts",
+        "build": "tsc",
+        "start": "node dist/agent.js",
+        "config": "node scripts/config-server.js"
+    },
+    "keywords": [],
+    "author": "ChatRAG Team",
+    "license": "MIT",
+    "dependencies": {
+        "@livekit/agents": "^1.0.31",
+        "@livekit/agents-plugin-silero": "^1.0.31",
+        "@livekit/rtc-node": "^0.13.22",
+        "@types/uuid": "^10.0.0",
+        "assemblyai": "^4.22.1",
+        "axios": "^1.6.7",
+        "dotenv": "^16.4.5",
+        "express": "^5.2.1",
+        "livekit-client": "^2.16.1",
+        "livekit-server-sdk": "^2.1.2",
+        "open": "^11.0.0",
+        "openai": "^4.28.0",
+        "uuid": "^13.0.0",
+        "ws": "^8.16.0",
+        "zod": "^3.22.4"
+    },
+    "devDependencies": {
+        "@types/node": "^20.11.24",
+        "@types/ws": "^8.5.10",
+        "tsx": "^4.7.1",
+        "typescript": "^5.3.3"
+    }
+}

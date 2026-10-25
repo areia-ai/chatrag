@@ -1,0 +1,199 @@
+/* Sidebar performance optimizations - CSS-only hover states */
+
+/* Theme-based CSS variables */
+[data-theme="dark"] {
+  --dropdown-bg: #2F2F2F;
+  --dropdown-hover: #424242;
+  --dropdown-text: #E6E6E6;
+  --dropdown-border: #2F2F2F;
+
+  --folder-dropdown-bg: #2F2F2F;
+  --folder-dropdown-hover: #424242;
+  --folder-dropdown-text: #E6E6E6;
+  --folder-dropdown-border: #2F2F2F;
+}
+
+[data-theme="light"] {
+  --dropdown-bg: #EFE1D5;
+  --dropdown-hover: #e5d6c9;
+  --dropdown-text: #444;
+  --dropdown-border: #EFE1D5;
+
+  --folder-dropdown-bg: #EFE1D5;
+  --folder-dropdown-hover: #e5d6c9;
+  --folder-dropdown-text: #444;
+  --folder-dropdown-border: #EFE1D5;
+}
+
+/* ============================================
+   Mobile-safe hover styles for chat and folder items
+   Only apply hover on devices that truly support hover (not touch)
+   This prevents the double-tap issue on mobile browsers
+   ============================================ */
+.chat-item-hover,
+.folder-item-hover {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Hover styles - only apply on devices with true hover capability */
+@media (hover: hover) and (pointer: fine) {
+  .chat-item-hover:hover {
+    background-color: #FFE8DC;
+  }
+
+  .dark .chat-item-hover:hover,
+  [data-theme="dark"] .chat-item-hover:hover {
+    background-color: #2F2F2F;
+  }
+
+  .folder-item-hover:hover {
+    background-color: #FFE8DC;
+  }
+
+  .dark .folder-item-hover:hover,
+  [data-theme="dark"] .folder-item-hover:hover {
+    background-color: #2F2F2F;
+  }
+}
+
+/* Active state for touch devices - provides immediate feedback on tap */
+.chat-item-hover:active,
+.folder-item-hover:active {
+  background-color: #FFE8DC;
+}
+
+.dark .chat-item-hover:active,
+[data-theme="dark"] .chat-item-hover:active,
+.dark .folder-item-hover:active,
+[data-theme="dark"] .folder-item-hover:active {
+  background-color: #2F2F2F;
+}
+
+/* Dropdown item hover states */
+.dropdown-item {
+  background-color: var(--dropdown-bg);
+  color: var(--dropdown-text);
+  transition: background-color 0.15s ease;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: var(--dropdown-hover) !important;
+}
+
+/* Folder dropdown item hover states */
+.folder-dropdown-item {
+  background-color: transparent;
+  color: var(--folder-dropdown-text);
+  transition: background-color 0.15s ease;
+  cursor: pointer;
+}
+
+.folder-dropdown-item:hover {
+  background-color: var(--folder-dropdown-hover) !important;
+}
+
+/* Performance optimizations */
+.chat-item,
+.folder-item {
+  /* Contain layout to prevent reflows */
+  contain: layout style paint;
+  /* Force GPU acceleration */
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Virtual list optimizations */
+.virtual-list-container {
+  contain: strict;
+  content-visibility: auto;
+}
+
+.virtual-item {
+  contain: layout style paint;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 64px;
+}
+
+/* Scrollbar performance */
+.sidebar-scroll-container {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* Prevent layout shifts during hover */
+.dropdown-trigger {
+  position: relative;
+  z-index: 1;
+}
+
+/* Optimize dropdown menu rendering */
+[data-radix-popper-content-wrapper] {
+  will-change: transform, opacity;
+}
+
+/* Reduce paint areas */
+.sidebar-content {
+  isolation: isolate;
+}
+
+/* Optimize mobile performance */
+@media (max-width: 768px) {
+
+  .chat-item,
+  .folder-item {
+    /* Reduce containment on mobile for better touch response */
+    contain: layout style;
+  }
+}
+
+/* Scroll area styling for folder submenu */
+[data-radix-scroll-area-viewport] {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(155, 155, 155, 0.5) transparent;
+}
+
+[data-radix-scroll-area-viewport]::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+[data-radix-scroll-area-viewport]::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+[data-radix-scroll-area-viewport]::-webkit-scrollbar-thumb {
+  background-color: rgba(155, 155, 155, 0.5);
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+[data-radix-scroll-area-viewport]::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(155, 155, 155, 0.7);
+}
+
+/* Add subtle shadows for scroll indicators */
+.scroll-shadow-top {
+  position: relative;
+}
+
+.scroll-shadow-top::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), transparent);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.scroll-shadow-top.scrolled::before {
+  opacity: 1;
+}

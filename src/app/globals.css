@@ -1,0 +1,3986 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Force always-visible scrollbars - workspace settings modal */
+@layer base {
+
+  /* WebKit browsers (Chrome, Safari, Edge) */
+  .workspace-modal-scroll::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .workspace-modal-scroll::-webkit-scrollbar-track {
+    background: #f3f4f6;
+    border-radius: 10px;
+  }
+
+  .dark .workspace-modal-scroll::-webkit-scrollbar-track {
+    background: rgba(31, 41, 55, 0.3);
+  }
+
+  .workspace-modal-scroll::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 10px;
+    transition: background-color 0.2s ease;
+  }
+
+  .dark .workspace-modal-scroll::-webkit-scrollbar-thumb {
+    background: #4b5563;
+  }
+
+  .workspace-modal-scroll::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+  }
+
+  .dark .workspace-modal-scroll::-webkit-scrollbar-thumb:hover {
+    background: #6b7280;
+  }
+
+  /* Firefox */
+  .workspace-modal-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: #d1d5db #f3f4f6;
+  }
+
+  .dark .workspace-modal-scroll {
+    scrollbar-color: #4b5563 rgba(31, 41, 55, 0.3);
+  }
+
+  /* Hide number input spinners */
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+}
+
+/* Gradient mask for chat messages fade effect - expanded gradual fall-off */
+.chat-messages-fade-mask {
+  mask-image: linear-gradient(to bottom,
+      black 0%,
+      black calc(100% - 180px),
+      rgba(0, 0, 0, 0.95) calc(100% - 160px),
+      rgba(0, 0, 0, 0.9) calc(100% - 140px),
+      rgba(0, 0, 0, 0.8) calc(100% - 120px),
+      rgba(0, 0, 0, 0.65) calc(100% - 100px),
+      rgba(0, 0, 0, 0.45) calc(100% - 80px),
+      rgba(0, 0, 0, 0.25) calc(100% - 60px),
+      rgba(0, 0, 0, 0.1) calc(100% - 40px),
+      transparent calc(100% - 20px));
+  -webkit-mask-image: linear-gradient(to bottom,
+      black 0%,
+      black calc(100% - 180px),
+      rgba(0, 0, 0, 0.95) calc(100% - 160px),
+      rgba(0, 0, 0, 0.9) calc(100% - 140px),
+      rgba(0, 0, 0, 0.8) calc(100% - 120px),
+      rgba(0, 0, 0, 0.65) calc(100% - 100px),
+      rgba(0, 0, 0, 0.45) calc(100% - 80px),
+      rgba(0, 0, 0, 0.25) calc(100% - 60px),
+      rgba(0, 0, 0, 0.1) calc(100% - 40px),
+      transparent calc(100% - 20px));
+}
+
+/* Custom animations for UI effects */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.5);
+  }
+
+  70% {
+    box-shadow: 0 0 0 5px rgba(59, 130, 246, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+  }
+}
+
+@keyframes simplePulse {
+  0% {
+    opacity: 0.7;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.7;
+  }
+}
+
+/* Shimmer effect for executing tools */
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes shimmerSubtle {
+  0% {
+    opacity: 0.8;
+    background-position: -200% center;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.8;
+    background-position: 200% center;
+  }
+}
+
+/* Shimmer text effect utility classes */
+.animate-shimmer {
+  background: linear-gradient(90deg,
+      currentColor 0%,
+      rgba(255, 255, 255, 0.4) 40%,
+      rgba(255, 255, 255, 0.6) 50%,
+      rgba(255, 255, 255, 0.4) 60%,
+      currentColor 100%);
+  background-size: 200% auto;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation: shimmer 2s linear infinite;
+}
+
+.animate-shimmer-subtle {
+  background: linear-gradient(90deg,
+      currentColor 0%,
+      rgba(255, 255, 255, 0.2) 50%,
+      currentColor 100%);
+  background-size: 200% auto;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation: shimmerSubtle 3s ease-in-out infinite;
+}
+
+/* Dark mode shimmer adjustments */
+.dark .animate-shimmer {
+  background: linear-gradient(90deg,
+      currentColor 0%,
+      rgba(255, 255, 255, 0.2) 40%,
+      rgba(255, 255, 255, 0.3) 50%,
+      rgba(255, 255, 255, 0.2) 60%,
+      currentColor 100%);
+  background-size: 200% auto;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+/* Fix for mobile viewport height */
+:root {
+  --vh: 1vh;
+  /* Mobile layout spacing variables */
+  --mobile-chat-input-height: 110px;
+  /* Height of the mobile chat input container */
+  --mobile-suggestion-gap: 16px;
+  /* Gap between suggestions and chat input */
+  --mobile-input-dock-height: 72px;
+  /* Base height of the fixed input dock (excluding safe-area) */
+}
+
+/* Mobile chat container - creates proper relationship between suggestions and input */
+@media (max-width: 639px) {
+  .mobile-chat-container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .mobile-suggestions-wrapper {
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  /* Tighten vertical spacing between suggestions and the input (mobile + desktop-narrow) */
+  .mobile-chat-container .chat-input-container form {
+    margin-top: 2px !important;
+  }
+}
+
+/* Enhanced Mobile Browser Compatibility Styles */
+@media (max-width: 640px) {
+
+  /* Ensure safe area support with fallbacks */
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  /* iOS Safari specific - force safe area respect */
+  @supports (-webkit-touch-callout: none) {
+    .pb-safe {
+      /* Use constant() for older iOS versions and env() for newer */
+      padding-bottom: constant(safe-area-inset-bottom);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+  }
+
+  /* Chrome iOS specific fixes - Chrome doesn't respect safe areas as well as Safari */
+  @supports (not (-webkit-touch-callout: none)) or ((-webkit-touch-callout: none) and (not (overflow: -webkit-marquee))) {
+    .pb-safe {
+      padding-bottom: max(env(safe-area-inset-bottom, 0px), 20px);
+    }
+  }
+
+  /* Chrome iOS specific using JavaScript class detection */
+  .chrome-ios .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+  }
+
+  /* Chrome iOS main container - use dynamic viewport height to account for address bar */
+  .chrome-ios main.h-screen {
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+  }
+
+  /* Mobile header safe-area for notched devices (iPhone X+) */
+  .header-container {
+    padding-top: max(8px, env(safe-area-inset-top, 0px));
+  }
+
+  /* iOS Safari specific - use both constant() and env() for older/newer iOS */
+  @supports (-webkit-touch-callout: none) {
+    .header-container {
+      padding-top: max(8px, constant(safe-area-inset-top));
+      padding-top: max(8px, env(safe-area-inset-top, 0px));
+    }
+  }
+
+
+  /* Sidebar content - iOS Safari specific */
+  @supports (-webkit-touch-callout: none) {
+    .sidebar-content {
+      /* Add safe area padding only for iOS Safari */
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    .sidebar-footer {
+      /* Add extra margin to move VMV button up on iOS Safari */
+      margin-bottom: 40px !important;
+    }
+  }
+
+
+  /* Dropdown trigger for all iOS mobile browsers */
+  @supports (-webkit-touch-callout: none) {
+    @media (max-width: 1023px) {
+      .dropdown-trigger {
+        margin-left: -8px !important;
+      }
+    }
+  }
+
+  /* Chrome iOS specific dropdown trigger */
+  .chrome-ios .dropdown-trigger {
+    margin-left: -8px !important;
+  }
+
+
+  /* Mobile welcome container positioning */
+  @media (max-width: 639px) {
+    .mobile-welcome-container {
+      /* Move welcome text higher on all mobile devices */
+      margin-top: -60px !important;
+    }
+  }
+
+  /* Unified desktop small screen experience */
+  /* This targets all desktop browsers (Chrome, Safari, Firefox, etc.) when resized to mobile width */
+  @media (max-width: 639px) and (pointer: fine) and (hover: hover) {
+
+    /* Remove all bottom spacing from wrapper */
+    .desktop-narrow-pb-remove {
+      padding-bottom: 0px !important;
+    }
+
+    /* Override pb-safe class specifically */
+    .desktop-narrow-pb-remove.pb-safe {
+      padding-bottom: 0px !important;
+    }
+
+    /* Chat input container flush to bottom */
+    .chat-input-container {
+      padding-bottom: 0px !important;
+      margin-bottom: 0px !important;
+    }
+
+    .chat-input-container form {
+      margin: 8px !important;
+      margin-bottom: 8px !important;
+    }
+  }
+
+  /* More specific targeting using body class */
+  body.desktop-narrow-view .desktop-narrow-pb-remove {
+    padding-bottom: 0px !important;
+  }
+
+  body.desktop-narrow-view .pb-safe {
+    padding-bottom: 0px !important;
+  }
+
+  body.desktop-narrow-view .chat-input-container {
+    padding-bottom: 0px !important;
+    margin-bottom: 0px !important;
+  }
+
+  body.desktop-narrow-view [class*="pb-safe"] {
+    padding-bottom: 0px !important;
+  }
+
+  /* Move tooltips above buttons for desktop narrow view to prevent cutoff */
+  body.desktop-narrow-view .desktop-narrow-tooltip {
+    bottom: calc(100% + 4px) !important;
+    top: auto !important;
+    left: 0 !important;
+    transform: translateX(0) !important;
+  }
+
+  /* Position suggestion buttons - desktop browsers resized to mobile width */
+  /* When inside mobile-chat-container, use static positioning (flexbox handles layout) */
+  @media (max-width: 639px) and (pointer: fine) and (hover: hover) {
+    .mobile-chat-container .mobile-suggestions-wrapper .suggestion-buttons-container {
+      position: static !important;
+      bottom: auto !important;
+      left: auto !important;
+      right: auto !important;
+      z-index: auto !important;
+    }
+  }
+
+  /* Safari desktop now uses the same positioning as Chrome desktop - no special handling needed */
+
+  /* CRITICAL: Ensure desktop Safari (≥ 640px) uses centered chat input like Chrome */
+  @supports (-webkit-touch-callout: none) {
+    @media (min-width: 640px) {
+
+      /* Force Safari desktop to use standard positioning, not mobile fixed positioning */
+      .chat-input-container {
+        position: static !important;
+        bottom: auto !important;
+        padding-bottom: 0 !important;
+      }
+
+      /* Ensure chat input is properly centered in Safari desktop */
+      .hidden.sm\:block {
+        display: block !important;
+      }
+
+      /* Hide mobile fixed input in Safari desktop */
+      .block.sm\:hidden {
+        display: none !important;
+      }
+
+      /* Also hide the mobile-dock (uses sm:hidden but not block class) */
+      #mobile-dock {
+        display: none !important;
+      }
+
+      /* Override any mobile-specific chat input styles for Safari desktop */
+      .chat-input-mobile {
+        position: static !important;
+        bottom: auto !important;
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+      }
+
+      /* Ensure proper main content layout in Safari desktop */
+      .main-content-mobile-padding {
+        padding-bottom: 0 !important;
+      }
+
+      /* Force desktop layout for welcome screen in Safari */
+      .mobile-welcome-container {
+        padding-bottom: 0 !important;
+        min-height: auto !important;
+        padding-top: 0 !important;
+      }
+    }
+  }
+
+  /* Desktop small screen - adjusted text size */
+  @media (max-width: 639px) and (pointer: fine) and (hover: hover) {
+    .mobile-welcome-container h1 {
+      font-size: 1.75rem !important;
+      /* 28px - middle ground between mobile and desktop */
+    }
+  }
+
+  /* Safari iOS specific - move welcome text even higher */
+  @supports (-webkit-touch-callout: none) {
+    @media (max-width: 639px) {
+
+      /* Only apply iOS-specific styles if NOT desktop-mobile-size */
+      body:not(.desktop-mobile-size) .mobile-welcome-container {
+        margin-top: -80px !important;
+      }
+
+      body:not(.desktop-mobile-size) h1.welcome-text {
+        font-size: 1.625rem !important;
+        /* 26px - slightly smaller text for iOS Safari */
+      }
+    }
+  }
+
+  /* Additional desktop-specific rules for better targeting */
+  body.desktop-mobile-size {
+    /* Override any mobile-specific safe area padding */
+    --safe-area-inset-bottom: 0px;
+  }
+
+  /* Removed conflicting Chrome desktop adjustments - these are now handled above */
+
+  /* Prevent iOS zoom on input focus */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="search"],
+  textarea,
+  select {
+    font-size: 16px !important;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+
+  /* Touch target optimization - only for actual touch devices */
+  @media (pointer: coarse) {
+
+    button,
+    input,
+    select,
+    textarea,
+    [role="button"],
+    [tabindex="0"] {
+      min-height: 44px;
+      min-width: 44px;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+  }
+
+  /* iOS Safari specific fixes */
+  @supports (-webkit-touch-callout: none) {
+
+    /* iOS specific viewport handling */
+    html,
+    body {
+      height: -webkit-fill-available;
+      height: var(--viewport-height-mobile, 100vh);
+    }
+
+    /* Fix for iOS Safari bouncing */
+    body {
+      position: fixed;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+    }
+
+    #__next {
+      height: 100%;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* iOS SAFARI SPECIFIC: Scroll button positioning and message container padding */
+    /* These only apply to iOS Safari, not iOS Chrome or Android */
+    @media (max-width: 639px) {
+
+      /* Hide duplicate disclaimer from page.tsx on iOS Safari */
+      .ios-hidden {
+        display: none !important;
+      }
+
+      /* Lower scroll button on iOS Safari - positioned closer to chat input */
+      .scroll-indicator-down {
+        top: -48px !important;
+      }
+
+      /* Add more bottom padding to message wrapper for iOS Safari */
+      /* This ensures action buttons have proper spacing from chat input */
+      .mobile-message-wrapper {
+        padding-bottom: 160px !important;
+      }
+    }
+  }
+
+  /* Android Chrome specific fixes */
+  @supports (not (-webkit-touch-callout: none)) {
+
+    /* Android specific optimizations */
+    html {
+      overflow-x: hidden;
+    }
+
+    body {
+      overflow-x: hidden;
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+    }
+  }
+
+  /* Safe area handling for notched devices */
+  .safe-area-top {
+    padding-top: var(--safe-area-inset-top, 0px);
+  }
+
+  .safe-area-bottom {
+    padding-bottom: var(--safe-area-inset-bottom, 0px);
+  }
+
+  .safe-area-left {
+    padding-left: var(--safe-area-inset-left, 0px);
+  }
+
+  .safe-area-right {
+    padding-right: var(--safe-area-inset-right, 0px);
+  }
+}
+
+/* Mobile i18n Text Utilities - Dynamic text handling for internationalization */
+@media (max-width: 640px) {
+
+  /* Settings modal tabs - allow wrapping on mobile for longer translations */
+  .mobile-tab-responsive {
+    white-space: normal !important;
+    text-wrap: balance;
+    hyphens: auto;
+    word-break: break-word;
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  /* Dynamic width for select triggers on mobile */
+  .mobile-select-dynamic {
+    width: auto !important;
+    min-width: 100px;
+    max-width: 100%;
+  }
+
+  /* Scrollable tab container for horizontal overflow */
+  .mobile-tabs-scroll {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 4px;
+    scroll-snap-type: x mandatory;
+  }
+
+  .mobile-tabs-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mobile-tabs-scroll>* {
+    scroll-snap-align: start;
+    flex-shrink: 0;
+  }
+
+  /* Text size reduction for i18n on mobile */
+  .mobile-text-i18n {
+    font-size: 0.8125rem;
+    /* 13px */
+    line-height: 1.2;
+  }
+
+  /* Ensure labels and headings don't clip in settings */
+  .mobile-i18n-wrap {
+    word-break: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+}
+
+/* Animation utility classes */
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-in-out forwards;
+}
+
+.animate-slideIn {
+  animation: slideIn 0.3s ease-out;
+}
+
+.animate-slideDown {
+  animation: slideDown 0.4s ease-out;
+}
+
+.animate-pulse-blue {
+  animation: pulse 2s infinite;
+}
+
+.animate-pulse-subtle {
+  animation: simplePulse 2s infinite ease-in-out;
+}
+
+/* Instant closing utility classes */
+.animate-close-instant {
+  animation: none !important;
+  transition: none !important;
+  opacity: 0 !important;
+  transform: scale(0) !important;
+}
+
+/* Override Radix UI closing animations globally */
+[data-state="closed"] {
+  animation-duration: 0ms !important;
+  transition-duration: 0ms !important;
+}
+
+/* Preserve opening animations */
+[data-state="open"] {
+  animation-duration: 200ms;
+  transition-duration: 200ms;
+}
+
+@layer base {
+  :root {
+    --background: #FFF1E5;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 22 100% 54%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: #FFE0D0;
+    --input: #FFE0D0;
+    --ring: 222.2 84% 4.9%;
+    --radius: 0.5rem;
+    --z-header: 100;
+    --z-overlay: 200;
+    --z-visual-backdrop: 250;
+    --z-sidebar: 150;
+    --z-modal: 300;
+    --z-dropdown: 10000;
+    --z-tooltip: 10001;
+    --scrollbar-width: 3px;
+    --scrollbar-track: #FFF1E5;
+    --scrollbar-track-dark: #212121;
+    --scrollbar-thumb: #EADDD7;
+    --scrollbar-thumb-dark: #2F2F2F;
+    --scrollbar-thumb-hover: #D4C0B6;
+    --scrollbar-thumb-hover-dark: #424242;
+    --z-negative: -1;
+    --z-normal: 1;
+    --z-sticky: 10;
+    --z-fixed: 20;
+    --z-popover: 50;
+    --z-tooltip: 60;
+
+    /* Enhanced mobile browser compatibility variables */
+    --safe-area-inset-top: env(safe-area-inset-top);
+    --safe-area-inset-right: env(safe-area-inset-right);
+    --safe-area-inset-bottom: env(safe-area-inset-bottom);
+    --safe-area-inset-left: env(safe-area-inset-left);
+    --viewport-height: 100vh;
+    --viewport-height-mobile: 100dvh;
+  }
+
+  .dark {
+    --background: 20 14.3% 4.1%;
+    --foreground: 60 9.1% 97.8%;
+    --card: 20 14.3% 4.1%;
+    --card-foreground: 60 9.1% 97.8%;
+    --popover: 20 14.3% 4.1%;
+    --popover-foreground: 60 9.1% 97.8%;
+    --primary: 60 9.1% 97.8%;
+    --primary-foreground: 24 9.8% 10%;
+    --secondary: 12 6.5% 15.1%;
+    --secondary-foreground: 60 9.1% 97.8%;
+    --muted: 12 6.5% 15.1%;
+    --muted-foreground: 24 5.4% 63.9%;
+    --accent: 12 6.5% 15.1%;
+    --accent-foreground: 60 9.1% 97.8%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 60 9.1% 97.8%;
+    --border: 12 6.5% 15.1%;
+    --input: 12 6.5% 15.1%;
+    --ring: 24 5.4% 63.9%;
+  }
+}
+
+/* Font Family Classes - Only applied when explicitly added to elements */
+.font-inter {
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.font-merriweather {
+  font-family: 'Merriweather', serif;
+}
+
+.font-source-code-pro {
+  font-family: 'Source Code Pro', monospace;
+}
+
+.font-atkinson-hyperlegible {
+  font-family: var(--font-atkinson-hyperlegible), 'Atkinson Hyperlegible', system-ui, sans-serif;
+}
+
+.font-lexend {
+  font-family: var(--font-lexend), 'Lexend', system-ui, sans-serif;
+}
+
+.font-open-sans {
+  font-family: var(--font-open-sans), 'Open Sans', system-ui, sans-serif;
+}
+
+.font-lato {
+  font-family: var(--font-lato), 'Lato', system-ui, sans-serif;
+}
+
+/* Apply font family to all text elements within chat messages */
+.chat-message.font-inter p,
+.chat-message.font-inter li,
+.chat-message.font-inter h1,
+.chat-message.font-inter h2,
+.chat-message.font-inter h3,
+.chat-message.font-inter h4,
+.chat-message.font-inter h5,
+.chat-message.font-inter h6,
+.chat-message.font-inter span,
+.chat-message.font-inter div {
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.chat-message.font-merriweather p,
+.chat-message.font-merriweather li,
+.chat-message.font-merriweather h1,
+.chat-message.font-merriweather h2,
+.chat-message.font-merriweather h3,
+.chat-message.font-merriweather h4,
+.chat-message.font-merriweather h5,
+.chat-message.font-merriweather h6,
+.chat-message.font-merriweather span,
+.chat-message.font-merriweather div {
+  font-family: 'Merriweather', serif;
+}
+
+.chat-message.font-source-code-pro p,
+.chat-message.font-source-code-pro li,
+.chat-message.font-source-code-pro h1,
+.chat-message.font-source-code-pro h2,
+.chat-message.font-source-code-pro h3,
+.chat-message.font-source-code-pro h4,
+.chat-message.font-source-code-pro h5,
+.chat-message.font-source-code-pro h6,
+.chat-message.font-source-code-pro span,
+.chat-message.font-source-code-pro div {
+  font-family: 'Source Code Pro', monospace;
+}
+
+/* Apply font family to ReactMarkdown content */
+.chat-message.font-inter .react-markdown p,
+.chat-message.font-inter .react-markdown li,
+.chat-message.font-inter .react-markdown h1,
+.chat-message.font-inter .react-markdown h2,
+.chat-message.font-inter .react-markdown h3,
+.chat-message.font-inter .react-markdown h4,
+.chat-message.font-inter .react-markdown h5,
+.chat-message.font-inter .react-markdown h6,
+.chat-message.font-inter .react-markdown span,
+.chat-message.font-inter .react-markdown div {
+  font-family: 'Inter', system-ui, sans-serif !important;
+}
+
+.chat-message.font-merriweather .react-markdown p,
+.chat-message.font-merriweather .react-markdown li,
+.chat-message.font-merriweather .react-markdown h1,
+.chat-message.font-merriweather .react-markdown h2,
+.chat-message.font-merriweather .react-markdown h3,
+.chat-message.font-merriweather .react-markdown h4,
+.chat-message.font-merriweather .react-markdown h5,
+.chat-message.font-merriweather .react-markdown h6,
+.chat-message.font-merriweather .react-markdown span,
+.chat-message.font-merriweather .react-markdown div {
+  font-family: 'Merriweather', serif !important;
+}
+
+.chat-message.font-source-code-pro .react-markdown p,
+.chat-message.font-source-code-pro .react-markdown li,
+.chat-message.font-source-code-pro .react-markdown h1,
+.chat-message.font-source-code-pro .react-markdown h2,
+.chat-message.font-source-code-pro .react-markdown h3,
+.chat-message.font-source-code-pro .react-markdown h4,
+.chat-message.font-source-code-pro .react-markdown h5,
+.chat-message.font-source-code-pro .react-markdown h6,
+.chat-message.font-source-code-pro .react-markdown span,
+.chat-message.font-source-code-pro .react-markdown div {
+  font-family: 'Source Code Pro', monospace !important;
+}
+
+/* Force inherit font family for all text elements within chat messages */
+.chat-message.font-inter * {
+  font-family: inherit;
+}
+
+.chat-message.font-merriweather * {
+  font-family: inherit;
+}
+
+.chat-message.font-source-code-pro * {
+  font-family: inherit;
+}
+
+.chat-message.font-atkinson-hyperlegible p,
+.chat-message.font-atkinson-hyperlegible li,
+.chat-message.font-atkinson-hyperlegible h1,
+.chat-message.font-atkinson-hyperlegible h2,
+.chat-message.font-atkinson-hyperlegible h3,
+.chat-message.font-atkinson-hyperlegible h4,
+.chat-message.font-atkinson-hyperlegible h5,
+.chat-message.font-atkinson-hyperlegible h6,
+.chat-message.font-atkinson-hyperlegible span,
+.chat-message.font-atkinson-hyperlegible div {
+  font-family: var(--font-atkinson-hyperlegible), 'Atkinson Hyperlegible', system-ui, sans-serif;
+}
+
+.chat-message.font-lexend p,
+.chat-message.font-lexend li,
+.chat-message.font-lexend h1,
+.chat-message.font-lexend h2,
+.chat-message.font-lexend h3,
+.chat-message.font-lexend h4,
+.chat-message.font-lexend h5,
+.chat-message.font-lexend h6,
+.chat-message.font-lexend span,
+.chat-message.font-lexend div {
+  font-family: var(--font-lexend), 'Lexend', system-ui, sans-serif;
+}
+
+.chat-message.font-open-sans p,
+.chat-message.font-open-sans li,
+.chat-message.font-open-sans h1,
+.chat-message.font-open-sans h2,
+.chat-message.font-open-sans h3,
+.chat-message.font-open-sans h4,
+.chat-message.font-open-sans h5,
+.chat-message.font-open-sans h6,
+.chat-message.font-open-sans span,
+.chat-message.font-open-sans div {
+  font-family: var(--font-open-sans), 'Open Sans', system-ui, sans-serif;
+}
+
+.chat-message.font-lato p,
+.chat-message.font-lato li,
+.chat-message.font-lato h1,
+.chat-message.font-lato h2,
+.chat-message.font-lato h3,
+.chat-message.font-lato h4,
+.chat-message.font-lato h5,
+.chat-message.font-lato h6,
+.chat-message.font-lato span,
+.chat-message.font-lato div {
+  font-family: var(--font-lato), 'Lato', system-ui, sans-serif;
+}
+
+.chat-message.font-atkinson-hyperlegible * {
+  font-family: inherit;
+}
+
+.chat-message.font-lexend * {
+  font-family: inherit;
+}
+
+.chat-message.font-open-sans * {
+  font-family: inherit;
+}
+
+.chat-message.font-lato * {
+  font-family: inherit;
+}
+
+/* Direct approach for chat messages - higher specificity */
+.chat-message[class*="font-inter"] {
+  font-family: 'Inter', system-ui, sans-serif !important;
+}
+
+.chat-message[class*="font-merriweather"] {
+  font-family: 'Merriweather', serif !important;
+}
+
+.chat-message[class*="font-source-code-pro"] {
+  font-family: 'Source Code Pro', monospace !important;
+}
+
+.chat-message[class*="font-atkinson-hyperlegible"] {
+  font-family: var(--font-atkinson-hyperlegible), 'Atkinson Hyperlegible', system-ui, sans-serif !important;
+}
+
+.chat-message[class*="font-lexend"] {
+  font-family: var(--font-lexend), 'Lexend', system-ui, sans-serif !important;
+}
+
+.chat-message[class*="font-open-sans"] {
+  font-family: var(--font-open-sans), 'Open Sans', system-ui, sans-serif !important;
+}
+
+.chat-message[class*="font-lato"] {
+  font-family: var(--font-lato), 'Lato', system-ui, sans-serif !important;
+}
+
+/* Target prose elements directly for different font families */
+.chat-message.font-inter .prose p,
+.chat-message.font-inter .prose li,
+.chat-message.font-inter .prose ul,
+.chat-message.font-inter .prose ol,
+.chat-message.font-inter .prose blockquote,
+.chat-message.font-inter .prose h1,
+.chat-message.font-inter .prose h2,
+.chat-message.font-inter .prose h3,
+.chat-message.font-inter .prose h4,
+.chat-message.font-inter .prose h5,
+.chat-message.font-inter .prose h6 {
+  font-family: 'Inter', system-ui, sans-serif !important;
+}
+
+.chat-message.font-merriweather .prose p,
+.chat-message.font-merriweather .prose li,
+.chat-message.font-merriweather .prose ul,
+.chat-message.font-merriweather .prose ol,
+.chat-message.font-merriweather .prose blockquote,
+.chat-message.font-merriweather .prose h1,
+.chat-message.font-merriweather .prose h2,
+.chat-message.font-merriweather .prose h3,
+.chat-message.font-merriweather .prose h4,
+.chat-message.font-merriweather .prose h5,
+.chat-message.font-merriweather .prose h6 {
+  font-family: 'Merriweather', serif !important;
+}
+
+.chat-message.font-source-code-pro .prose p,
+.chat-message.font-source-code-pro .prose li,
+.chat-message.font-source-code-pro .prose ul,
+.chat-message.font-source-code-pro .prose ol,
+.chat-message.font-source-code-pro .prose blockquote,
+.chat-message.font-source-code-pro .prose h1,
+.chat-message.font-source-code-pro .prose h2,
+.chat-message.font-source-code-pro .prose h3,
+.chat-message.font-source-code-pro .prose h4,
+.chat-message.font-source-code-pro .prose h5,
+.chat-message.font-source-code-pro .prose h6 {
+  font-family: 'Source Code Pro', monospace !important;
+}
+
+/* Text Size Classes - Only applied when explicitly added to elements */
+.text-size-small {
+  font-size: 0.875rem;
+  /* 14px */
+}
+
+.text-size-default {
+  font-size: 1rem;
+  /* 16px */
+}
+
+.text-size-large {
+  font-size: 1.125rem;
+  /* 18px */
+}
+
+/* Apply text size to Markdown components within chat messages */
+.chat-message.text-size-small p,
+.chat-message.text-size-small li,
+.chat-message.text-size-small h5,
+.chat-message.text-size-small h6 {
+  font-size: 0.875rem;
+}
+
+.chat-message.text-size-small h1 {
+  font-size: 1.5rem;
+}
+
+.chat-message.text-size-small h2 {
+  font-size: 1.25rem;
+}
+
+.chat-message.text-size-small h3 {
+  font-size: 1.125rem;
+}
+
+.chat-message.text-size-small h4 {
+  font-size: 1rem;
+}
+
+.chat-message.text-size-default p,
+.chat-message.text-size-default li,
+.chat-message.text-size-default h6 {
+  font-size: 1rem;
+}
+
+.chat-message.text-size-default h1 {
+  font-size: 1.75rem;
+}
+
+.chat-message.text-size-default h2 {
+  font-size: 1.5rem;
+}
+
+.chat-message.text-size-default h3 {
+  font-size: 1.25rem;
+}
+
+.chat-message.text-size-default h4 {
+  font-size: 1.125rem;
+}
+
+.chat-message.text-size-default h5 {
+  font-size: 1.0625rem;
+}
+
+.chat-message.text-size-large p,
+.chat-message.text-size-large li,
+.chat-message.text-size-large h6 {
+  font-size: 1.125rem;
+}
+
+.chat-message.text-size-large h1 {
+  font-size: 2rem;
+}
+
+.chat-message.text-size-large h2 {
+  font-size: 1.75rem;
+}
+
+.chat-message.text-size-large h3 {
+  font-size: 1.5rem;
+}
+
+.chat-message.text-size-large h4 {
+  font-size: 1.25rem;
+}
+
+.chat-message.text-size-large h5 {
+  font-size: 1.125rem;
+}
+
+/* Apply text size to Markdown content inside chat messages */
+.chat-message.text-size-small .react-markdown p,
+.chat-message.text-size-small .react-markdown li {
+  font-size: 0.875rem;
+}
+
+.chat-message.text-size-large .react-markdown p,
+.chat-message.text-size-large .react-markdown li {
+  font-size: 1.125rem;
+}
+
+/* Clean styling for lists in markdown content */
+.react-markdown ol {
+  list-style-type: decimal !important;
+  padding-left: 2rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.react-markdown ul {
+  list-style-type: disc !important;
+  padding-left: 2rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.react-markdown li {
+  display: list-item !important;
+  padding-left: 0.5rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+/* Remove the custom bullet points from list items since we're using native bullets now */
+.react-markdown li .rounded-full.bg-current {
+  display: none !important;
+}
+
+/* Make the list markers (bullets and numbers) visible with proper colors */
+.react-markdown li::marker {
+  color: rgb(17, 24, 39) !important;
+  /* Dark color for light theme */
+}
+
+.dark .react-markdown li::marker {
+  color: rgb(229, 231, 235) !important;
+  /* Light color for dark theme */
+}
+
+.prose {
+  @apply max-w-full;
+  --tw-prose-body: theme('colors.gray.700');
+  --tw-prose-headings: theme('colors.gray.900');
+  --tw-prose-lead: theme('colors.gray.600');
+  --tw-prose-links: theme('colors.orange.500');
+  --tw-prose-bold: theme('colors.gray.900');
+  --tw-prose-counters: theme('colors.gray.500');
+  --tw-prose-bullets: theme('colors.gray.500');
+  --tw-prose-hr: theme('colors.gray.200');
+  --tw-prose-quotes: theme('colors.gray.900');
+  --tw-prose-quote-borders: theme('colors.gray.200');
+  --tw-prose-captions: theme('colors.gray.500');
+  --tw-prose-code: theme('colors.gray.900');
+  --tw-prose-pre-code: theme('colors.gray.200');
+  --tw-prose-pre-bg: theme('colors.gray.800');
+  --tw-prose-th-borders: theme('colors.gray.300');
+  --tw-prose-td-borders: theme('colors.gray.200');
+}
+
+.prose p {
+  @apply mb-4;
+}
+
+.prose p:last-child {
+  @apply mb-0;
+}
+
+/* Ensure no bottom margin on last paragraph in chat message */
+.chat-message .prose p:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* Ensure all last elements in a chat message have no bottom margin */
+.chat-message .prose>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* Specific adjustments for different font families */
+.chat-message.font-inter .prose>*:last-child,
+.chat-message.font-merriweather .prose>*:last-child,
+.chat-message.font-source-code-pro .prose>*:last-child {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* Adjust line heights for different fonts to prevent inconsistent spacing */
+.chat-message.font-inter .prose p,
+.chat-message.font-inter .prose li {
+  line-height: 1.5;
+}
+
+.chat-message.font-merriweather .prose p,
+.chat-message.font-merriweather .prose li {
+  line-height: 1.6;
+}
+
+.chat-message.font-source-code-pro .prose p,
+.chat-message.font-source-code-pro .prose li {
+  line-height: 1.5;
+}
+
+/* Make sure the button container has a consistent position */
+.chat-message+div[class*="mt-2"] {
+  margin-top: 0.5rem !important;
+}
+
+/* Add these CSS scroll settings */
+.scroll-container {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  /* Enables momentum scrolling on iOS */
+  overscroll-behavior-y: contain;
+  /* Prevents scroll chain to parent */
+
+  /* Optional: Add some custom scroll properties */
+  scrollbar-gutter: stable;
+  /* Prevents layout shift */
+  scrollbar-width: thin;
+
+  /* Add smooth transitions to the scrollbar thumb */
+  &::-webkit-scrollbar {
+    width: var(--scrollbar-width);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    transition: all 0.2s ease;
+    border-radius: 4px;
+    background-clip: padding-box;
+    background-color: var(--scrollbar-thumb);
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: var(--scrollbar-track);
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: var(--scrollbar-thumb-hover);
+  }
+
+  /* Add a pressed state */
+  &::-webkit-scrollbar-thumb:active {
+    background-color: var(--scrollbar-thumb-hover);
+  }
+}
+
+/* Dark mode adjustments */
+.dark .scroll-container::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb-dark);
+}
+
+.dark .scroll-container::-webkit-scrollbar-track {
+  background-color: var(--scrollbar-track-dark);
+}
+
+.dark .scroll-container::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-thumb-hover-dark);
+}
+
+.dark .scroll-container::-webkit-scrollbar-thumb:active {
+  background-color: var(--scrollbar-thumb-hover-dark);
+}
+
+/* Optional: Add scroll snap points to messages */
+.message {
+  scroll-snap-align: start;
+}
+
+/* Add hover effect */
+.scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* Artifact Sidebar Scrollbar Behavior */
+/* First, completely hide the scrollbar by default */
+#artifact-sidebar-scroll-container {
+  scrollbar-width: thin;
+  -ms-overflow-style: none;
+  /* Hide scrollbar in Edge/IE */
+}
+
+#artifact-sidebar-scroll-container::-webkit-scrollbar {
+  width: var(--scrollbar-width, 3px);
+  background-color: transparent;
+}
+
+#artifact-sidebar-scroll-container::-webkit-scrollbar-track {
+  background-color: transparent !important;
+  display: none !important;
+}
+
+#artifact-sidebar-scroll-container::-webkit-scrollbar-thumb {
+  background-color: transparent !important;
+  border-radius: 4px;
+  opacity: 0;
+}
+
+/* Only show scrollbar thumb (not track) when hovering or scrolling */
+#artifact-sidebar-scroll-container:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(212, 192, 182, 0.6) !important;
+  /* Light theme thumb */
+}
+
+.dark #artifact-sidebar-scroll-container:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(66, 66, 66, 0.6) !important;
+  /* Dark theme thumb */
+}
+
+#artifact-sidebar-scroll-container.scrolling::-webkit-scrollbar-thumb {
+  background-color: rgba(212, 192, 182, 0.6) !important;
+  /* Light theme thumb */
+}
+
+.dark #artifact-sidebar-scroll-container.scrolling::-webkit-scrollbar-thumb {
+  background-color: rgba(66, 66, 66, 0.6) !important;
+  /* Dark theme thumb */
+}
+
+/* Darker on hover */
+#artifact-sidebar-scroll-container:hover::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(212, 192, 182, 0.8) !important;
+  /* Light theme hover */
+}
+
+.dark #artifact-sidebar-scroll-container:hover::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(80, 80, 80, 0.8) !important;
+  /* Dark theme hover */
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Simple and clean approach for both sidebars */
+/* Main content transitions */
+.main-content {
+  transition: margin 0.3s ease;
+  width: 100%;
+  position: relative;
+  /* Prevent layout shifts */
+  contain: layout;
+  /* Ensure the scrollbar position is consistent */
+  overflow-x: hidden;
+  /* Fix scrollbar positioning */
+  padding-right: 0 !important;
+  margin-right: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* Ensure the chat container is properly centered */
+.main-content>div {
+  /* Center the content in the available space */
+  margin-left: auto;
+  margin-right: auto;
+  /* Add max-width to ensure content doesn't stretch too wide */
+  max-width: 52rem;
+  transition: max-width 0.3s ease, margin 0.3s ease;
+  /* Fix scrollbar positioning */
+  padding-right: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* Recent Chats sidebar open */
+body.sidebar-open .main-content {
+  margin-left: 256px;
+  padding-right: 0 !important;
+  margin-right: 0 !important;
+}
+
+/* Remove artifact sidebar layout shifting - now using overlay approach */
+
+/* Remove old artifact sidebar content shifting styles */
+
+/* Remove all old responsive adjustments for artifact sidebar */
+
+/* Ensure the scrollbar position is consistent */
+html {
+  overflow-x: hidden;
+  scrollbar-gutter: auto !important;
+  /* Changed from stable to auto */
+  margin-right: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* Tailwind Typography (Prose) Customizations for Markdown */
+.dark .prose {
+  --tw-prose-body: theme('colors.gray.300');
+  --tw-prose-headings: theme('colors.gray.100');
+  --tw-prose-lead: theme('colors.gray.400');
+  --tw-prose-links: theme('colors.orange.400');
+  --tw-prose-bold: theme('colors.gray.100');
+  --tw-prose-counters: theme('colors.gray.400');
+  --tw-prose-bullets: theme('colors.gray.400');
+  --tw-prose-hr: theme('colors.gray.700');
+  --tw-prose-quotes: theme('colors.gray.100');
+  --tw-prose-quote-borders: theme('colors.gray.700');
+  --tw-prose-captions: theme('colors.gray.400');
+  --tw-prose-code: theme('colors.gray.100');
+  --tw-prose-pre-code: theme('colors.gray.300');
+  --tw-prose-pre-bg: theme('colors.gray.800');
+  --tw-prose-th-borders: theme('colors.gray.600');
+  --tw-prose-td-borders: theme('colors.gray.700');
+}
+
+/* Custom spacing for specific markdown elements */
+.prose :where(p):not(:where([class~="not-prose"] *)) {
+  margin-bottom: 1rem;
+}
+
+.prose :where(h1, h2, h3, h4, h5, h6):not(:where([class~="not-prose"] *)) {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Improved spacing for content after headings with colons */
+.prose :where(strong):not(:where([class~="not-prose"] *)):has(+ :not(strong)) {
+  margin-right: 0.25rem;
+}
+
+/* Make numbered list headings larger and more prominent */
+.react-markdown ol>li>strong {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+}
+
+/* Ensure proper spacing in lists */
+.prose :where(ol, ul):not(:where([class~="not-prose"] *)) {
+  padding-left: 1.5rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose :where(li):not(:where([class~="not-prose"] *)) {
+  margin-top: 0.375rem;
+  margin-bottom: 0.375rem;
+}
+
+/* Override for dropdown menus */
+/* Preload styles to prevent flash of white */
+@keyframes popoverFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Base styles for all dropdown content wrappers */
+[data-radix-popper-content-wrapper]:not(:has([data-mobile-tools])) {
+  background-color: transparent !important;
+  /* Make the wrapper transparent */
+  animation: none !important;
+  /* Remove animation initially */
+  opacity: 1 !important;
+  /* Start fully opaque */
+  transform-origin: var(--radix-popper-transform-origin) !important;
+  border-radius: 12px !important;
+}
+
+/* ============================================
+   UNIFIED DROPDOWN STYLING - ALL DROPDOWNS
+   Apply consistent shadow, border radius, and colors
+   ============================================ */
+
+/* Radix wrapper - apply prominent shadow to ALL dropdowns */
+[data-radix-popper-content-wrapper] {
+  box-shadow: 0 10px 40px -5px rgba(0, 0, 0, 0.15), 0 4px 25px -2px rgba(0, 0, 0, 0.1) !important;
+  border-radius: 12px !important;
+  overflow: visible !important;
+  background-color: transparent !important;
+  background: none !important;
+}
+
+.dark [data-radix-popper-content-wrapper] {
+  /* Tighter shadow for dark mode - less expansion, no banding */
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 2px 6px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* Select/listbox wrappers - clean shadow without border ring */
+[data-radix-popper-content-wrapper]:has([role="listbox"]) {
+  box-shadow: 0 10px 40px -5px rgba(0, 0, 0, 0.15), 0 4px 25px -2px rgba(0, 0, 0, 0.1) !important;
+}
+
+.dark [data-radix-popper-content-wrapper]:has([role="listbox"]) {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Direct child div of wrapper (the actual dropdown content) */
+[data-radix-popper-content-wrapper]>div {
+  background-color: #EFE1D5 !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  border: 1px solid #D4C4B5 !important;
+  box-shadow: none !important;
+}
+
+.dark [data-radix-popper-content-wrapper]>div {
+  background-color: #2F2F2F !important;
+  border: 1px solid #4A4A4A !important;
+}
+
+/* Select/listbox dropdowns - remove double border effect */
+[data-radix-popper-content-wrapper]:has([role="listbox"])>div {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.dark [data-radix-popper-content-wrapper]:has([role="listbox"])>div {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Mobile tools - make the DropdownMenuContent transparent so inner div shows */
+[data-mobile-tools] {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.dark [data-mobile-tools] {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Role=menu elements should be transparent */
+[data-radix-popper-content-wrapper] [role="menu"],
+[data-radix-popper-content-wrapper] [role="dialog"],
+[data-radix-popper-content-wrapper] [role="listbox"] {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.dark [data-radix-popper-content-wrapper] [role="menu"],
+.dark [data-radix-popper-content-wrapper] [role="dialog"],
+.dark [data-radix-popper-content-wrapper] [role="listbox"] {
+  background-color: transparent !important;
+  border: none !important;
+}
+
+/* Custom hover color for dropdown menu items */
+[data-radix-popper-content-wrapper] .radix-dropdown-item:hover,
+[data-radix-popper-content-wrapper] [role="menuitem"]:hover {
+  background-color: #E5D6C9 !important;
+  border-radius: 8px !important;
+}
+
+.dark [data-radix-popper-content-wrapper] .radix-dropdown-item:hover,
+.dark [data-radix-popper-content-wrapper] [role="menuitem"]:hover {
+  background-color: #424242 !important;
+  border-radius: 8px !important;
+}
+
+/* Ensure all dropdown items have consistent styling */
+[data-radix-popper-content-wrapper] [role="menuitem"] {
+  border-radius: 8px !important;
+  margin: 2px !important;
+}
+
+
+/* Override accent background for SubTrigger components */
+[data-radix-popper-content-wrapper] button[role="menuitem"]:focus {
+  background-color: transparent !important;
+}
+
+[data-radix-popper-content-wrapper] button[role="menuitem"][data-state="open"] {
+  background-color: transparent !important;
+}
+
+/* Specifically target SubTrigger to override all accent backgrounds */
+.sidebar-subtrigger,
+.sidebar-subtrigger:focus,
+.sidebar-subtrigger[data-state="open"],
+.sidebar-subtrigger[data-state="open"]:hover {
+  background-color: transparent !important;
+}
+
+/* Target all radix dropdown elements - low specificity fallback */
+[data-radix-dropdown-menu],
+[data-state="open"] {
+  background-color: inherit !important;
+}
+
+/* Prevent flash of white content in dropdowns */
+html.dark {
+  --dropdown-bg: #2F2F2F;
+  --dropdown-border: #424242;
+  --dropdown-hover: #424242;
+}
+
+html:not(.dark) {
+  --dropdown-bg: #FFF0E8;
+  --dropdown-border: transparent;
+  --dropdown-hover: #e5d6c9;
+}
+
+/* Pre-style dropdown elements before they animate in */
+[data-radix-popper-content-wrapper]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: var(--dropdown-bg);
+  border-radius: 0.5rem;
+  z-index: -1;
+}
+
+/* Ensure dropdown portal container is properly styled */
+[role="presentation"][id^="radix-"] {
+  background-color: var(--dropdown-bg) !important;
+  z-index: var(--z-overlay, 40);
+  overflow: hidden;
+}
+
+/* Extra styles to prevent white flash */
+.dark [data-state="open"],
+.dark [data-state="delayed-open"] {
+  background-color: var(--dropdown-bg) !important;
+}
+
+/* Fix any weird rendering with content overlays */
+.dark [data-radix-popper-content-wrapper] * {
+  color-scheme: dark;
+}
+
+/* Apply specific fixes for Safari */
+@supports (-webkit-backdrop-filter: none) {
+  .dark [data-radix-popper-content-wrapper] {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+}
+
+/* Fix for dialog overlays to ensure they cover the whole viewport */
+[data-radix-popper-content-wrapper] [role="dialog"] {
+  position: relative;
+  z-index: var(--z-modal, 60);
+}
+
+/* Ensure portal elements cover the entire viewport */
+[data-radix-portal] {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: var(--z-overlay, 40);
+}
+
+/* Fix for artifact sidebar when dialog is open */
+body.dialog-open [data-artifact-sidebar="true"] {
+  display: none !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  min-width: 0 !important;
+  max-width: 0 !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  position: absolute !important;
+  right: -9999px !important;
+  transform: translateX(100%) !important;
+}
+
+/* Ensure main content takes full width when dialog is open */
+body.dialog-open .main-content {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-right: 0 !important;
+  padding-right: 0 !important;
+}
+
+body.dialog-open .main-content>div {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-right: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* Ensure no vertical bars appear on the right edge during dialog display */
+body.dialog-open::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 20px;
+  /* Wider than a typical scrollbar */
+  height: 100dvh;
+  background-color: inherit;
+  /* Match the body background */
+  z-index: 39;
+  /* Just below the dialog overlay */
+}
+
+/* Ensure proper stacking of dialog overlay */
+body.dialog-open .fixed[aria-hidden="true"] {
+  z-index: 100 !important;
+  /* Higher than any other element */
+}
+
+/* Specific fix for the dialog when the artifact sidebar is present */
+html:has([data-artifact-sidebar="true"]) .fixed[aria-hidden="true"],
+body:has([data-artifact-sidebar="true"]) .fixed[aria-hidden="true"] {
+  width: 100vw !important;
+  height: 100dvh !important;
+  right: 0 !important;
+  z-index: 100 !important;
+}
+
+/* Ensure dialog overlay covers everything */
+html.dialog-open,
+body.dialog-open {
+  /* Prevent scrolling while dialog is open */
+  overflow: hidden !important;
+
+  /* Hide scrollbars - but not in chat messages */
+  &:not(.chat-message) {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+}
+
+html.dialog-open::-webkit-scrollbar,
+body.dialog-open::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+}
+
+/* Preserves scrollbars in chat messages even when dialog is open */
+.chat-message,
+.message-container,
+.overflow-y-auto,
+[class*="chat-content"] {
+  scrollbar-width: auto !important;
+  -ms-overflow-style: auto !important;
+
+  &::-webkit-scrollbar {
+    display: initial !important;
+    width: auto !important;
+  }
+
+  /* Ensure chat message scrollbar styles */
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2) !important;
+    border-radius: 4px !important;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.3) !important;
+    }
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent !important;
+  }
+}
+
+.dark .chat-message::-webkit-scrollbar-thumb,
+.dark .message-container::-webkit-scrollbar-thumb,
+.dark .overflow-y-auto::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.3) !important;
+  }
+}
+
+/* Hide the artifact sidebar when dialog is open */
+body.dialog-open [data-artifact-sidebar="true"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  z-index: -1 !important;
+}
+
+/* Ensure the artifact sidebar doesn't take up space when not in use */
+/* Remove old artifact sidebar visibility styles - now using overlay approach */
+
+/* Ensure no vertical bars appear near the right edge */
+body.dialog-open::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 20px;
+  /* Wide enough to cover any scrollbar or gap */
+  height: 100dvh;
+  background-color: inherit;
+  z-index: var(--z-overlay, 50);
+}
+
+/* Force dialog content to appear above everything */
+[data-state="open"] {
+  z-index: var(--z-modal, 100) !important;
+}
+
+/* Dialog overlay backdrop should cover entire viewport */
+[data-radix-portal]>.fixed {
+  width: 100vw !important;
+  height: 100dvh !important;
+  inset: 0 !important;
+  backdrop-filter: none !important;
+  /* Remove any backdrop blur effect */
+  box-shadow: none !important;
+  /* Remove any shadow that might cause halo effect */
+  z-index: 100 !important;
+  /* Ensure it's above the header */
+}
+
+/* Fix for dialog backdrop in dark mode to prevent halo effect */
+.dark [data-radix-portal]>.fixed[aria-hidden="true"] {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  /* Clean solid color without blur */
+  backdrop-filter: none !important;
+  box-shadow: none !important;
+}
+
+/* Adjust main content area to use full width when artifact sidebar is not open */
+.main-content {
+  width: 100% !important;
+  transition: width 0.3s ease;
+}
+
+/* Remove old artifact sidebar main content adjustments */
+
+/* Ensure scrollbars go all the way to the edge when no sidebar */
+.main-content:not(:has(+ [data-artifact-sidebar="true"])) .scrollbar,
+.main-content:not(:has(+ [data-artifact-sidebar="true"])) [class*="scrollbar"] {
+  width: 100% !important;
+}
+
+/* Prevent any gaps at the edge of the screen */
+.main-content>div {
+  width: 100% !important;
+}
+
+/* Ensure scrollbar is always visible in chat content area */
+.scroll-container {
+  scrollbar-width: auto !important;
+  -ms-overflow-style: auto !important;
+
+  &::-webkit-scrollbar {
+    display: initial !important;
+    width: 3px !important;
+    /* Match your design */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    display: initial !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+}
+
+/* Override dialog-open scrollbar hiding specifically for chat containers */
+body.dialog-open .overflow-y-auto.scroll-container,
+body.dialog-open .scrollbar.scroll-container {
+  scrollbar-width: auto !important;
+  -ms-overflow-style: auto !important;
+  overflow-y: auto !important;
+
+  &::-webkit-scrollbar {
+    display: block !important;
+    width: 3px !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+}
+
+/* Reset overly aggressive scrollbar hiding */
+.overflow-y-auto {
+  overflow-y: auto !important;
+}
+
+/* Only hide scrollbars for very specific elements */
+body.dialog-open {
+  .main-content {
+    /* Main scrollbar is hidden */
+    overflow: hidden !important;
+  }
+
+  /* But keep scrollbars for chat messages */
+  .chat-message,
+  .scroll-container,
+  .overflow-y-auto.scrollbar {
+    overflow-y: auto !important;
+
+    &::-webkit-scrollbar {
+      display: initial !important;
+      width: 3px !important;
+      visibility: visible !important;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      display: initial !important;
+      visibility: visible !important;
+    }
+  }
+}
+
+/* Custom scrollbar styles specifically for dark theme in chat messages */
+.dark .chat-message::-webkit-scrollbar-thumb,
+.dark .scroll-container::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  border-radius: 4px !important;
+}
+
+.dark .chat-message::-webkit-scrollbar-track,
+.dark .scroll-container::-webkit-scrollbar-track {
+  background-color: #212121 !important;
+}
+
+/* Light theme scrollbar */
+.chat-message::-webkit-scrollbar-thumb,
+.scroll-container::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2) !important;
+  border-radius: 4px !important;
+}
+
+.chat-message::-webkit-scrollbar-track,
+.scroll-container::-webkit-scrollbar-track {
+  background-color: #FFF1E5 !important;
+}
+
+/* Scrollbar Fix for Dialog and Chat Messages */
+/* Ensure scrollbars work properly when dialog is open */
+html.dialog-open body .absolute.inset-0.overflow-y-auto.scrollbar.scroll-container {
+  overflow-y: auto !important;
+  scrollbar-width: thin !important;
+  -ms-overflow-style: auto !important;
+}
+
+html.dialog-open body .absolute.inset-0.overflow-y-auto.scrollbar.scroll-container::-webkit-scrollbar {
+  display: block !important;
+  width: 3px !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+html.dialog-open body .absolute.inset-0.overflow-y-auto.scrollbar.scroll-container::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb) !important;
+  border-radius: 4px !important;
+  border: none !important;
+}
+
+html.dialog-open body .absolute.inset-0.overflow-y-auto.scrollbar.scroll-container::-webkit-scrollbar-track {
+  background-color: var(--scrollbar-track) !important;
+}
+
+/* Dark mode scrollbar adjustments */
+html.dark.dialog-open body .absolute.inset-0.overflow-y-auto.scrollbar.scroll-container::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb-dark) !important;
+}
+
+html.dark.dialog-open body .absolute.inset-0.overflow-y-auto.scrollbar.scroll-container::-webkit-scrollbar-track {
+  background-color: var(--scrollbar-track) !important;
+}
+
+/* Common scrollbar variables */
+:root {
+  --scrollbar-thumb: rgba(212, 192, 182, 0.5);
+  --scrollbar-track: rgba(239, 225, 213, 0.5);
+  --scrollbar-thumb-dark: rgba(66, 66, 66, 0.5);
+  --scrollbar-track-dark: rgba(33, 33, 33, 0.5);
+}
+
+/* Apply the scrollbar fix */
+html,
+body {
+  &.dialog-open {
+
+    /* Add the scrollbar fix class */
+    &.chat-scrollbar-fix {
+      .overflow-y-auto.scrollbar.scroll-container {
+        scrollbar-width: thin !important;
+        -ms-overflow-style: auto !important;
+      }
+    }
+  }
+}
+
+/* Simple fix for artifact sidebar scrollbar vs chat scrollbar */
+
+/* Hide scrollbar on the main body when dialog is open */
+html.dialog-open body {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+html.dialog-open body::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+}
+
+/* But ensure chat container scrollbar remains visible */
+html.dialog-open body .absolute.inset-0.overflow-y-auto.scrollbar.scroll-container {
+  overflow-y: auto !important;
+  scrollbar-width: thin !important;
+  -ms-overflow-style: auto !important;
+}
+
+html.dialog-open body .absolute.inset-0.overflow-y-auto.scrollbar.scroll-container::-webkit-scrollbar {
+  display: block !important;
+  width: 3px !important;
+}
+
+/* CHAT SCROLLBAR FIX - NEW IMPLEMENTATION */
+/* Remove existing rules that might be causing issues */
+
+/* These are the styles that will always ensure the chat scrollbar is visible */
+.absolute.inset-0.overflow-y-auto.scrollbar.scroll-container {
+  overflow-y: auto !important;
+  -ms-overflow-style: auto !important;
+  scrollbar-width: thin !important;
+  position: absolute !important;
+  inset: 0 !important;
+  right: 0 !important;
+  padding-right: 0 !important;
+  margin-right: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.absolute.inset-0.overflow-y-auto.scrollbar.scroll-container::-webkit-scrollbar {
+  width: 5px !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  background-color: transparent !important;
+  position: absolute !important;
+  right: 0 !important;
+}
+
+.absolute.inset-0.overflow-y-auto.scrollbar.scroll-container::-webkit-scrollbar-thumb {
+  background-color: rgba(128, 128, 128, 0.5) !important;
+  border-radius: 4px !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  display: block !important;
+}
+
+.dark .absolute.inset-0.overflow-y-auto.scrollbar.scroll-container::-webkit-scrollbar-thumb {
+  background-color: rgba(200, 200, 200, 0.5) !important;
+}
+
+/* Hide other scrollbars when dialog is open */
+html.dialog-open body {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+  overflow-y: auto !important;
+}
+
+html.dialog-open body::-webkit-scrollbar {
+  width: 0 !important;
+  display: none !important;
+}
+
+/* CHAT SCROLLBAR VISIBILITY FIX */
+.chat-message-container {
+  overflow-y: auto !important;
+  -ms-overflow-style: auto !important;
+  scrollbar-width: thin !important;
+}
+
+.chat-message-container::-webkit-scrollbar {
+  width: 5px !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.chat-message-container::-webkit-scrollbar-thumb {
+  background-color: #D4C0B6 !important;
+  border-radius: 4px !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.dark .chat-message-container::-webkit-scrollbar-thumb {
+  background-color: #424242 !important;
+}
+
+/* Ensure scrollbar is visible even when dialog is open */
+html.dialog-open .chat-message-container,
+body.dialog-open .chat-message-container {
+  overflow-y: auto !important;
+  -ms-overflow-style: auto !important;
+  scrollbar-width: thin !important;
+}
+
+html.dialog-open .chat-message-container::-webkit-scrollbar,
+body.dialog-open .chat-message-container::-webkit-scrollbar {
+  width: 5px !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Hide artifact scrollbar when dialog is open */
+body.dialog-open {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+body.dialog-open::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+}
+
+/* Fix for chat scrollbar when dialog is open */
+body.dialog-open .absolute.inset-0.overflow-y-auto.scrollbar.scroll-container,
+body.dialog-open .chat-message-container {
+  width: 100vw !important;
+  /* Use viewport width to ensure full width */
+  max-width: 100vw !important;
+  right: 0 !important;
+  left: 0 !important;
+  margin-right: 0 !important;
+  padding-right: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* Make sure content is properly contained with padding */
+body.dialog-open .absolute.inset-0.overflow-y-auto.scrollbar.scroll-container>div,
+body.dialog-open .chat-message-container>div {
+  padding-right: 10px !important;
+  /* Add padding for content to avoid scrollbar overlap */
+  max-width: calc(52rem + 10px) !important;
+  /* Match existing max-width but add scrollbar space */
+}
+
+/* Position scrollbar at the absolute edge */
+body.dialog-open .absolute.inset-0.overflow-y-auto.scrollbar.scroll-container::-webkit-scrollbar,
+body.dialog-open .chat-message-container::-webkit-scrollbar {
+  position: absolute !important;
+  right: 0 !important;
+  width: 8px !important;
+}
+
+/* High contrast scrollbar thumb for better visibility */
+body.dialog-open .absolute.inset-0.overflow-y-auto.scrollbar.scroll-container::-webkit-scrollbar-thumb,
+body.dialog-open .chat-message-container::-webkit-scrollbar-thumb {
+  background-color: rgba(150, 150, 150, 0.7) !important;
+  border-radius: 4px !important;
+  border: 1px solid rgba(200, 200, 200, 0.3) !important;
+}
+
+/* Dark mode scrollbar */
+body.dialog-open.dark .absolute.inset-0.overflow-y-auto.scrollbar.scroll-container::-webkit-scrollbar-thumb,
+body.dialog-open.dark .chat-message-container::-webkit-scrollbar-thumb {
+  background-color: rgba(200, 200, 200, 0.5) !important;
+  border: 1px solid rgba(100, 100, 100, 0.3) !important;
+}
+
+/* SCROLLBAR RIGHT EDGE FIX */
+body.dialog-open {
+  overflow-x: hidden !important;
+}
+
+body.dialog-open .absolute.inset-0.overflow-y-auto.scrollbar.scroll-container {
+  right: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+body.dialog-open .absolute.inset-0.overflow-y-auto.scrollbar.scroll-container>div {
+  padding-right: 15px !important;
+  max-width: 52rem !important;
+  margin: 0 auto !important;
+}
+
+body.dialog-open .absolute.inset-0.overflow-y-auto.scrollbar.scroll-container::-webkit-scrollbar {
+  width: 10px !important;
+  right: 0 !important;
+}
+
+/* CRITICAL FIX - FORCE SCROLLBAR TO EDGE */
+body.dialog-open {
+  overflow-x: hidden !important;
+  padding-right: 0 !important;
+  margin-right: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  position: relative !important;
+}
+
+body.dialog-open .main-content,
+body.dialog-open .main-content>div {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding-right: 0 !important;
+  margin-right: 0 !important;
+  overflow-x: hidden !important;
+}
+
+/* Fix scrollbar container to remove any spacing */
+body.dialog-open .absolute.inset-0,
+body.dialog-open .absolute.inset-0.overflow-y-auto.scrollbar.scroll-container {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding-right: 0 !important;
+  margin-right: 0 !important;
+  right: 0 !important;
+  left: 0 !important;
+  overflow-x: hidden !important;
+  position: absolute !important;
+  box-sizing: border-box !important;
+}
+
+/* Force scrollbar to the absolute edge with fixed positioning */
+body.dialog-open .absolute.inset-0.overflow-y-auto.scrollbar.scroll-container::-webkit-scrollbar {
+  position: absolute !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  right: 0 !important;
+  width: 5px !important;
+  height: 100% !important;
+  z-index: 9999 !important;
+}
+
+/* Override any scrollbar track styling */
+body.dialog-open .absolute.inset-0.overflow-y-auto.scrollbar.scroll-container::-webkit-scrollbar-track {
+  margin-right: 0 !important;
+  padding-right: 0 !important;
+  right: 0 !important;
+}
+
+/* Create higher contrast thumb for visibility */
+body.dialog-open .absolute.inset-0.overflow-y-auto.scrollbar.scroll-container::-webkit-scrollbar-thumb {
+  background-color: rgba(150, 150, 150, 0.8) !important;
+  border-radius: 5px !important;
+  right: 0 !important;
+}
+
+/* FINAL DIRECT SCROLLBAR FIX */
+body.dialog-open {
+  box-sizing: border-box !important;
+  width: 100vw !important;
+  max-width: 100vw !important;
+  padding-right: 0 !important;
+  margin-right: 0 !important;
+}
+
+body.dialog-open .absolute.inset-0.overflow-y-auto.scrollbar.scroll-container {
+  right: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100vw !important;
+}
+
+body.dialog-open .absolute.inset-0.overflow-y-auto.scrollbar.scroll-container::-webkit-scrollbar {
+  position: absolute !important;
+  right: 0 !important;
+  top: 0 !important;
+  width: 5px !important;
+  height: 100dvh !important;
+  z-index: 9999 !important;
+}
+
+/* Fix for scrollbar gap without affecting sidebar */
+.main-content::-webkit-scrollbar,
+.chat-message-container::-webkit-scrollbar {
+  position: absolute;
+  width: 5px;
+}
+
+/* Fix the scrollbar position for the chat container specifically */
+.chat-message-container {
+  box-sizing: border-box !important;
+}
+
+/* Target the specific gap issue by fixing the entire container */
+.flex-1.relative>.absolute.inset-0.overflow-y-auto.scrollbar.scroll-container.chat-message-container {
+  margin-right: 0 !important;
+  padding-right: 0 !important;
+  right: 0 !important;
+}
+
+/* Fix scrollbar appearance without changing positioning */
+.scrollbar::-webkit-scrollbar-thumb,
+.chat-message-container::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-clip: padding-box;
+}
+
+/* Only fix the gap, without changing other behavior */
+html,
+body,
+#root-layout {
+  margin-right: 0 !important;
+  padding-right: 0 !important;
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Ensure the scrollbar hover works */
+.chat-message-container::-webkit-scrollbar-thumb:hover {
+  background-color: #c0a796 !important;
+}
+
+.dark .chat-message-container::-webkit-scrollbar-thumb:hover {
+  background-color: #555 !important;
+}
+
+/* Fix specifically for the chat scrollbar with artifact sidebar */
+body:not(.dialog-open) .absolute.inset-0.overflow-y-auto.scrollbar.scroll-container.chat-message-container {
+  position: absolute !important;
+  inset: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
+body:not(.dialog-open) .absolute.inset-0.overflow-y-auto.scrollbar.scroll-container.chat-message-container::-webkit-scrollbar {
+  position: absolute !important;
+  right: 0 !important;
+  width: 5px !important;
+}
+
+/* Ensure hover effects are preserved */
+.chat-message-container:hover::-webkit-scrollbar-thumb {
+  background-color: #c0a796 !important;
+}
+
+.dark .chat-message-container:hover::-webkit-scrollbar-thumb {
+  background-color: #555 !important;
+}
+
+/* Master scrollbar fix - This will be the definitive solution */
+#root-layout,
+.main-content,
+body,
+html {
+  /* Ensure no parent containers have right padding/margin */
+  margin-right: 0 !important;
+  padding-right: 0 !important;
+  box-sizing: border-box !important;
+  overflow-x: hidden !important;
+  width: 100% !important;
+}
+
+#main-chat-container,
+.absolute.inset-0.overflow-y-auto.scrollbar.scroll-container,
+.chat-message-container {
+  /* Base styles */
+  scrollbar-width: thin;
+  -ms-overflow-style: auto;
+
+  /* Aggressive positioning to eliminate gap */
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  bottom: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+
+  /* Zero out all spacing */
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+
+  /* Force scrollbar to be at edge */
+  scrollbar-gutter: auto !important;
+  overflow-x: hidden !important;
+}
+
+/* WebKit scrollbar styling */
+::-webkit-scrollbar,
+#main-chat-container::-webkit-scrollbar,
+.absolute.inset-0.overflow-y-auto.scrollbar.scroll-container::-webkit-scrollbar,
+.chat-message-container::-webkit-scrollbar {
+  /* Basic properties */
+  width: var(--scrollbar-width, 3px) !important;
+  height: auto !important;
+
+  /* Aggressive positioning */
+  position: absolute !important;
+  right: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+
+  /* Visibility */
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+
+  /* Styling */
+  border: none !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background-clip: padding-box !important;
+}
+
+/* Track styling - chat containers only */
+#main-chat-container::-webkit-scrollbar-track,
+.absolute.inset-0.overflow-y-auto.scrollbar.scroll-container::-webkit-scrollbar-track,
+.chat-message-container::-webkit-scrollbar-track {
+  background-color: var(--scrollbar-track, #FFF1E5) !important;
+  position: absolute !important;
+  right: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  width: 3px !important;
+}
+
+.dark #main-chat-container::-webkit-scrollbar-track,
+.dark .absolute.inset-0.overflow-y-auto.scrollbar.scroll-container::-webkit-scrollbar-track,
+.dark .chat-message-container::-webkit-scrollbar-track {
+  background-color: var(--scrollbar-track-dark, #212121) !important;
+}
+
+/* Thumb styling - chat containers only */
+#main-chat-container::-webkit-scrollbar-thumb,
+.absolute.inset-0.overflow-y-auto.scrollbar.scroll-container::-webkit-scrollbar-thumb,
+.chat-message-container::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb, #EADDD7) !important;
+  border-radius: 4px !important;
+  border: none !important;
+  position: absolute !important;
+  right: 0 !important;
+  width: 3px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Dark mode thumb - chat containers only */
+.dark #main-chat-container::-webkit-scrollbar-thumb,
+.dark .absolute.inset-0.overflow-y-auto.scrollbar.scroll-container::-webkit-scrollbar-thumb,
+.dark .chat-message-container::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb-dark, #2F2F2F) !important;
+}
+
+/* SIDEBAR SPECIFIC SCROLLBAR STYLING */
+/* Restore sidebar scrollbar to its original styling */
+.sidebar .scrollbar,
+.group\/sidebar .scrollbar,
+.fixed.top-0.left-0.z-40.h-full.w-64.overflow-hidden .overflow-y-auto.scrollbar {
+  scrollbar-width: thin !important;
+  -ms-overflow-style: auto !important;
+}
+
+.sidebar .scrollbar::-webkit-scrollbar,
+.group\/sidebar .scrollbar::-webkit-scrollbar,
+.fixed.top-0.left-0.z-40.h-full.w-64.overflow-hidden .overflow-y-auto.scrollbar::-webkit-scrollbar {
+  width: 3px !important;
+  display: block !important;
+  visibility: visible !important;
+}
+
+.sidebar .scrollbar::-webkit-scrollbar-track,
+.group\/sidebar .scrollbar::-webkit-scrollbar-track,
+.fixed.top-0.left-0.z-40.h-full.w-64.overflow-hidden .overflow-y-auto.scrollbar::-webkit-scrollbar-track {
+  background-color: #FFF1E5 !important;
+}
+
+.dark .sidebar .scrollbar::-webkit-scrollbar-track,
+.dark .group\/sidebar .scrollbar::-webkit-scrollbar-track,
+.dark .fixed.top-0.left-0.z-40.h-full.w-64.overflow-hidden .overflow-y-auto.scrollbar::-webkit-scrollbar-track {
+  background-color: #212121 !important;
+}
+
+.sidebar .scrollbar::-webkit-scrollbar-thumb,
+.group\/sidebar .scrollbar::-webkit-scrollbar-thumb,
+.fixed.top-0.left-0.z-40.h-full.w-64.overflow-hidden .overflow-y-auto.scrollbar::-webkit-scrollbar-thumb {
+  background-color: #EADDD7 !important;
+  border-radius: 4px !important;
+}
+
+.dark .sidebar .scrollbar::-webkit-scrollbar-thumb,
+.dark .group\/sidebar .scrollbar::-webkit-scrollbar-thumb,
+.dark .fixed.top-0.left-0.z-40.h-full.w-64.overflow-hidden .overflow-y-auto.scrollbar::-webkit-scrollbar-thumb {
+  background-color: #2F2F2F !important;
+}
+
+/* Sidebar scrollbar hover effects */
+.sidebar .scrollbar:hover::-webkit-scrollbar-thumb,
+.group\/sidebar .scrollbar:hover::-webkit-scrollbar-thumb,
+.fixed.top-0.left-0.z-40.h-full.w-64.overflow-hidden .overflow-y-auto.scrollbar:hover::-webkit-scrollbar-thumb {
+  background-color: #D4C0B6 !important;
+}
+
+.dark .sidebar .scrollbar:hover::-webkit-scrollbar-thumb,
+.dark .group\/sidebar .scrollbar:hover::-webkit-scrollbar-thumb,
+.dark .fixed.top-0.left-0.z-40.h-full.w-64.overflow-hidden .overflow-y-auto.scrollbar:hover::-webkit-scrollbar-thumb {
+  background-color: #424242 !important;
+}
+
+/* Model Selector Scrollbar - Explicit classes for portal rendering */
+.light-scrollbar {
+  scrollbar-width: thin !important;
+  -ms-overflow-style: auto !important;
+}
+
+.light-scrollbar::-webkit-scrollbar {
+  width: 3px !important;
+  display: block !important;
+  visibility: visible !important;
+}
+
+.light-scrollbar::-webkit-scrollbar-track {
+  background-color: #FFF1E5 !important;
+}
+
+.light-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #D4C0B6 !important;
+  border-radius: 4px !important;
+}
+
+.light-scrollbar:hover::-webkit-scrollbar-thumb {
+  background-color: #C0A99D !important;
+}
+
+/* Dark mode explicit classes */
+.dark-scrollbar {
+  scrollbar-width: thin !important;
+  -ms-overflow-style: auto !important;
+}
+
+.dark-scrollbar::-webkit-scrollbar {
+  width: 3px !important;
+  display: block !important;
+  visibility: visible !important;
+}
+
+.dark-scrollbar::-webkit-scrollbar-track {
+  background-color: #212121 !important;
+}
+
+.dark-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #4A4A4A !important;
+  border-radius: 4px !important;
+}
+
+.dark-scrollbar:hover::-webkit-scrollbar-thumb {
+  background-color: #5A5A5A !important;
+}
+
+/* Hover effects */
+.chat-message-container::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-thumb-hover, #D4C0B6) !important;
+}
+
+.dark .chat-message-container::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-thumb-hover-dark, #424242) !important;
+}
+
+/* Make sure parent containers don't restrict width */
+html,
+body,
+#root-layout,
+.main-content {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+  margin-right: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* Remove any artifact sidebar effect on scrollbar */
+[data-artifact-sidebar="true"] {
+  right: 0 !important;
+  /* Ensure the sidebar doesn't affect the scrollbar */
+  z-index: var(--z-sidebar) !important;
+}
+
+/* Apply scrollbar styling globally */
+/* Generic scrollbar styling - except for main chat container */
+.scrollbar:not(#main-chat-container):not(.chat-message-container):not(.absolute.inset-0.overflow-y-auto.scrollbar.scroll-container) {
+  scrollbar-width: thin;
+  -ms-overflow-style: auto;
+}
+
+.scrollbar:not(#main-chat-container):not(.chat-message-container):not(.absolute.inset-0.overflow-y-auto.scrollbar.scroll-container)::-webkit-scrollbar {
+  width: var(--scrollbar-width) !important;
+}
+
+.scrollbar:not(#main-chat-container):not(.chat-message-container):not(.absolute.inset-0.overflow-y-auto.scrollbar.scroll-container)::-webkit-scrollbar-track {
+  background-color: var(--scrollbar-track) !important;
+}
+
+.scrollbar:not(#main-chat-container):not(.chat-message-container):not(.absolute.inset-0.overflow-y-auto.scrollbar.scroll-container)::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb) !important;
+  border-radius: 4px !important;
+}
+
+.scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-thumb-hover) !important;
+}
+
+.dark .scrollbar::-webkit-scrollbar-track {
+  background-color: var(--scrollbar-track-dark) !important;
+}
+
+.dark .scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb-dark) !important;
+}
+
+.dark .scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-thumb-hover-dark) !important;
+}
+
+/* Apply consistent scrollbar-width utility class */
+.scrollbar-w-3 {
+  --scrollbar-width: 3px !important;
+  scrollbar-width: thin !important;
+}
+
+.scrollbar-w-3::-webkit-scrollbar {
+  width: 3px !important;
+}
+
+/* Sidebar-specific scrollbar utility classes */
+.scrollbar-track-\[\#FFF1E5\]::-webkit-scrollbar-track {
+  background-color: #FFF1E5 !important;
+}
+
+.dark .scrollbar-track-\[\#212121\]::-webkit-scrollbar-track {
+  background-color: #212121 !important;
+}
+
+.scrollbar-thumb-\[\#EADDD7\]::-webkit-scrollbar-thumb {
+  background-color: #EADDD7 !important;
+  border-radius: 4px !important;
+}
+
+.dark .scrollbar-thumb-\[\#2F2F2F\]::-webkit-scrollbar-thumb {
+  background-color: #2F2F2F !important;
+}
+
+.group-hover\/sidebar\:scrollbar-thumb-\[\#D4C0B6\]:hover::-webkit-scrollbar-thumb {
+  background-color: #D4C0B6 !important;
+}
+
+.dark .group-hover\/sidebar\:dark\:scrollbar-thumb-\[\#424242\]:hover::-webkit-scrollbar-thumb {
+  background-color: #424242 !important;
+}
+
+/* CRITICAL FIX - CHAT SCROLLBAR DIRECT STYLING */
+/* This is a direct approach that should override any other styles */
+
+.chat-message-container {
+  scrollbar-width: thin !important;
+  -ms-overflow-style: auto !important;
+  position: absolute !important;
+  inset: 0 !important;
+  right: 0 !important;
+  padding-right: 0 !important;
+  margin-right: 0 !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.chat-message-container::-webkit-scrollbar {
+  width: 3px !important;
+  display: block !important;
+  visibility: visible !important;
+  position: absolute !important;
+  right: 0 !important;
+}
+
+.chat-message-container::-webkit-scrollbar-track {
+  background-color: #FFF1E5 !important;
+  right: 0 !important;
+  margin-right: 0 !important;
+  padding-right: 0 !important;
+}
+
+.dark .chat-message-container::-webkit-scrollbar-track {
+  background-color: #212121 !important;
+}
+
+.chat-message-container::-webkit-scrollbar-thumb {
+  background-color: #EADDD7 !important;
+  border-radius: 4px !important;
+  border: none !important;
+  right: 0 !important;
+}
+
+.dark .chat-message-container::-webkit-scrollbar-thumb {
+  background-color: #2F2F2F !important;
+}
+
+/* Add hover effects for scrollbar */
+.chat-message-container:hover::-webkit-scrollbar-thumb {
+  background-color: #D4C0B6 !important;
+}
+
+.dark .chat-message-container:hover::-webkit-scrollbar-thumb {
+  background-color: #424242 !important;
+}
+
+/* Critical fix for main chat scrollbar width */
+#main-chat-container::-webkit-scrollbar,
+.chat-message-container::-webkit-scrollbar,
+.absolute.inset-0.scrollbar.scroll-container::-webkit-scrollbar {
+  width: 3px !important;
+}
+
+/* Ensure scrollbar width is consistent */
+.scrollbar::-webkit-scrollbar {
+  width: var(--scrollbar-width, 3px) !important;
+}
+
+/* Custom document-dialog styles to prevent blurry halos */
+.document-dialog {
+  box-shadow: none !important;
+  border: 1px solid rgba(224, 213, 201, 0.8) !important;
+  /* Subtle light beige border */
+  background-color: #FFF1E5 !important;
+  /* Warm white */
+}
+
+.dark .document-dialog {
+  box-shadow: none !important;
+  border: 1px solid rgba(58, 58, 58, 1) !important;
+  /* Dark gray border instead of white */
+  background-color: #212121 !important;
+}
+
+/* Document dashboard hover effects for tables */
+.document-dialog .group:hover {
+  background-color: rgba(255, 240, 232, 0.6) !important;
+  /* #FFF0E8 with opacity */
+}
+
+.dark .document-dialog .group:hover {
+  background-color: rgba(42, 42, 42, 0.8) !important;
+  /* Slightly lighter than background */
+}
+
+/* Dark mode table styling improvements */
+.dark .document-dialog table {
+  border-color: #3A3A3A !important;
+  /* Consistent dark gray border */
+}
+
+.dark .document-dialog table th,
+.dark .document-dialog table td {
+  border-color: #3A3A3A !important;
+}
+
+.dark .document-dialog table tr {
+  border-color: #3A3A3A !important;
+}
+
+/* Table row hover styles for consistent appearance */
+.document-dialog table tbody tr:hover {
+  background-color: rgba(255, 240, 232, 0.6) !important;
+  /* #FFF0E8 with opacity */
+}
+
+.dark .document-dialog table tbody tr:hover {
+  background-color: rgba(42, 42, 42, 0.8) !important;
+  /* Slightly lighter tone for hover */
+}
+
+/* ULTIMATE SCROLLBAR FIX - HIGHEST PRIORITY - CHAT ONLY */
+/* Target only the main chat container, not the sidebar */
+.chat-message-container,
+.absolute.inset-0.overflow-y-auto.scrollbar.scroll-container,
+#main-chat-container {
+  scrollbar-gutter: auto !important;
+  overflow-x: hidden !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  padding-right: 0 !important;
+  margin-right: 0 !important;
+}
+
+/* Target only chat scrollbars, not sidebar */
+.absolute.inset-0.overflow-y-auto.scrollbar.scroll-container::-webkit-scrollbar,
+.chat-message-container::-webkit-scrollbar,
+#main-chat-container::-webkit-scrollbar {
+  width: 3px !important;
+  position: absolute !important;
+  right: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  display: block !important;
+  visibility: visible !important;
+  overflow: visible !important;
+}
+
+/* Main chat container specific positioning */
+.absolute.inset-0.overflow-y-auto.scrollbar.scroll-container,
+.chat-message-container,
+#main-chat-container {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  right: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* First column cells (row headers) styling */
+.chat-message table tr td:first-child {
+  background-color: #ffe8dc !important;
+  /* Changed from #F5E9DF to #ffe8dc as requested */
+  font-weight: 600 !important;
+  color: #1A1A1A !important;
+  border-right: 1px solid #E6D5C5 !important;
+  /* Ensure the right border is visible */
+}
+
+/* Bottom-left corner cell special styling */
+.chat-message table tr:last-child td:first-child {
+  border-bottom-left-radius: 8px !important;
+  /* Match the table's border radius */
+}
+
+.dark .chat-message table tr td:first-child {
+  background-color: #262626 !important;
+  /* Slightly darker than regular dark cell background */
+  color: #E6E6E6 !important;
+  border-right: 1px solid #424242 !important;
+  /* Dark mode border */
+}
+
+/* Ensure top-left corner cell has proper styling */
+.chat-message table tr:first-child th:first-child {
+  border-top-left-radius: 8px !important;
+}
+
+/* Ensure bottom-right corner cell has proper styling */
+.chat-message table tr:last-child td:last-child {
+  border-bottom-right-radius: 8px !important;
+}
+
+/* Mobile responsive table styles */
+@media (max-width: 640px) {
+  .chat-message table {
+    font-size: 0.85rem !important;
+    width: 100% !important;
+  }
+
+  .chat-message table th,
+  .chat-message table td {
+    padding: 0.3rem 0.5rem !important;
+    word-break: break-word !important;
+    hyphens: auto !important;
+  }
+
+  /* Allow horizontal scrolling for tables on mobile */
+  .chat-message div:has(> table) {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    margin-bottom: 1rem !important;
+  }
+
+  /* Scrollbar styling for table container */
+  .chat-message div:has(> table)::-webkit-scrollbar {
+    height: 3px !important;
+  }
+
+  .chat-message div:has(> table)::-webkit-scrollbar-track {
+    background-color: #ffe8dc !important;
+    /* Changed from #F5E9DF to #ffe8dc as requested */
+  }
+
+  .chat-message div:has(> table)::-webkit-scrollbar-thumb {
+    background-color: rgba(230, 213, 197, 0.8) !important;
+    border-radius: 4px !important;
+  }
+
+  .dark .chat-message div:has(> table)::-webkit-scrollbar-track {
+    background-color: #262626 !important;
+  }
+
+  .dark .chat-message div:has(> table)::-webkit-scrollbar-thumb {
+    background-color: rgba(66, 66, 66, 0.8) !important;
+  }
+}
+
+/* Add styles for table titles and spacing */
+.chat-message h3+table,
+.chat-message h3+div table {
+  margin-top: 0.75rem !important;
+}
+
+.chat-message table {
+  margin-bottom: 0.5rem !important;
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  border: 1px solid #E6D5C5 !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  width: 100% !important;
+}
+
+.dark .chat-message table {
+  border-color: #424242 !important;
+}
+
+.chat-message h3:has(+ table),
+.chat-message h3:has(+ div table) {
+  font-weight: bold !important;
+  border-bottom: 1px solid #E6D5C5 !important;
+  padding-bottom: 0.5rem !important;
+  margin-bottom: 0.75rem !important;
+  margin-top: 2rem !important;
+}
+
+.dark .chat-message h3:has(+ table),
+.dark .chat-message h3:has(+ div table) {
+  border-bottom-color: #424242 !important;
+}
+
+/* First table title should not have the extra top margin */
+.chat-message h3:first-child:has(+ table),
+.chat-message h3:first-child:has(+ div table) {
+  margin-top: 0 !important;
+}
+
+/* Add spacing between consecutive tables */
+.chat-message table+h3,
+.chat-message div:has(> table)+h3 {
+  margin-top: 2.5rem !important;
+}
+
+/* Table header styling */
+.chat-message table th {
+  background-color: #EFE1D5 !important;
+  color: #1A1A1A !important;
+  font-weight: 600 !important;
+  border: 1px solid #E6D5C5 !important;
+  padding: 0.5rem 0.75rem !important;
+  text-align: left !important;
+}
+
+/* First column cells (row headers) styling */
+.chat-message table tr td:first-child {
+  background-color: #ffe8dc !important;
+  /* Changed from #F5E9DF to #ffe8dc as requested */
+  font-weight: 600 !important;
+  color: #1A1A1A !important;
+  border-right: 1px solid #E6D5C5 !important;
+  /* Ensure the right border is visible */
+}
+
+/* Bottom-left corner cell special styling */
+.chat-message table tr:last-child td:first-child {
+  border-bottom-left-radius: 8px !important;
+  /* Match the table's border radius */
+}
+
+.dark .chat-message table tr td:first-child {
+  background-color: #262626 !important;
+  /* Slightly darker than regular dark cell background */
+  color: #E6E6E6 !important;
+  border-right: 1px solid #424242 !important;
+  /* Dark mode border */
+}
+
+/* Ensure top-left corner cell has proper styling */
+.chat-message table tr:first-child th:first-child {
+  border-top-left-radius: 8px !important;
+}
+
+/* Ensure bottom-right corner cell has proper styling */
+.chat-message table tr:last-child td:last-child {
+  border-bottom-right-radius: 8px !important;
+}
+
+.dark .chat-message table th {
+  background-color: #2F2F2F !important;
+  color: #E6E6E6 !important;
+  border-color: #424242 !important;
+}
+
+/* Table cell styling */
+.chat-message table td {
+  border: 1px solid #E6D5C5 !important;
+  padding: 0.5rem 0.75rem !important;
+  background-color: #FFF1E5 !important;
+  color: #1A1A1A !important;
+}
+
+.dark .chat-message table td {
+  border-color: #424242 !important;
+  background-color: #212121 !important;
+  color: #E6E6E6 !important;
+}
+
+/* Ensure iframe content is isolated from dark mode */
+iframe[data-theme-isolated="true"] {
+  color-scheme: light;
+  background-color: white;
+}
+
+/* Custom styles for dropdown triggers - don't modify these */
+[data-state="open"].dropdown-trigger {
+  background-color: #FFE8DC !important;
+}
+
+.dark [data-state="open"].dropdown-trigger {
+  background-color: #2E2E2E !important;
+}
+
+/* Custom styles for dropdown triggers - don't modify these */
+button.dropdown-trigger[data-state="open"] {
+  background-color: #FFE8DC !important;
+}
+
+.dark button.dropdown-trigger[data-state="open"] {
+  background-color: #2E2E2E !important;
+}
+
+/* Styles for dialog triggers - these apply when the .!bg-[#FFE8DC] class is applied */
+button.dropdown-trigger.\!bg-\[\#FFE8DC\] {
+  background-color: #FFE8DC !important;
+}
+
+.dark button.dropdown-trigger.\!bg-\[\#2E2E2E\] {
+  background-color: #2E2E2E !important;
+}
+
+/* Styles for dialog triggers with important background classes */
+button.dropdown-trigger.\!bg-\[\#FFE8DC\] {
+  background-color: #FFE8DC !important;
+}
+
+.dark button.dropdown-trigger.\!bg-\[\#2E2E2E\] {
+  background-color: #2E2E2E !important;
+}
+
+/* Scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(155, 155, 155, 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(155, 155, 155, 0.8);
+}
+
+/* Make scrollbar always visible on hover in chat messages */
+.chat-messages:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(155, 155, 155, 0.8);
+}
+
+/* Remove scrollbar from elements with artifact-sidebar-open class */
+body.artifact-sidebar-open .chat-container {
+  padding-right: 0 !important;
+}
+
+/* Ensure scrollbar is always present in chat container */
+.chat-container {
+  scrollbar-gutter: stable;
+  padding-right: 0 !important;
+  /* Prevent shifting when scrollbar appears */
+}
+
+/* Add scrollbar hover effect to chat messages */
+.chat-messages {
+  scrollbar-width: thin;
+  scrollbar-gutter: stable;
+}
+
+/* Fix for Firefox scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(155, 155, 155, 0.5) transparent;
+}
+
+*:hover {
+  scrollbar-color: rgba(155, 155, 155, 0.8) transparent;
+}
+
+/* Ensure scrollbar is visible in chat-message-container */
+.chat-message-container::-webkit-scrollbar {
+  width: 8px !important;
+  display: block !important;
+  position: absolute !important;
+  right: 0 !important;
+}
+
+.chat-message-container:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(155, 155, 155, 0.8);
+  visibility: visible !important;
+}
+
+/* Fix for artifact sidebar scrollbar gap */
+body.artifact-sidebar-open .chat-message-container {
+  padding-right: 0 !important;
+  margin-right: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  right: 0 !important;
+}
+
+/* Ensure scrollbar gutter is stable */
+.chat-message-container {
+  scrollbar-gutter: stable;
+  overflow-y: auto !important;
+  scrollbar-width: thin !important;
+  background: transparent !important;
+}
+
+/* Custom hover color for dropdown menu items and select items */
+[data-radix-popper-content-wrapper] .radix-dropdown-item:hover,
+[data-radix-popper-content-wrapper] [role="menuitem"]:hover,
+[data-radix-popper-content-wrapper] [role="option"][data-highlighted] {
+  background-color: #e5d6c9 !important;
+  border-radius: 0.5rem !important;
+}
+
+.dark [data-radix-popper-content-wrapper] .radix-dropdown-item:hover,
+.dark [data-radix-popper-content-wrapper] [role="menuitem"]:hover,
+.dark [data-radix-popper-content-wrapper] [role="option"][data-highlighted] {
+  background-color: #424242 !important;
+  border-radius: 0.5rem !important;
+}
+
+/* Ensure all dropdown items and select items have consistent styling */
+[data-radix-popper-content-wrapper] [role="menuitem"],
+[data-radix-popper-content-wrapper] [role="option"] {
+  border-radius: 0.5rem !important;
+  margin: 2px !important;
+}
+
+/* Target Radix Select content */
+[data-radix-select-content] {
+  background-color: var(--dropdown-bg) !important;
+  border-radius: 0.75rem !important;
+  border-color: var(--dropdown-border) !important;
+  overflow: hidden !important;
+}
+
+/* Specific styles for Select viewport to properly position items */
+[data-radix-select-viewport] {
+  padding: 6px !important;
+}
+
+/* Add specific fixes for the MCP Tool Box component */
+.tool-invocation-wrapper {
+  position: relative;
+  margin-bottom: 1rem;
+  /* Increase bottom margin to make room for explanatory text */
+}
+
+/* Improve rendering and spacing consistency */
+.space-y-4>.tool-invocation-wrapper {
+  margin-top: 0;
+  margin-bottom: 0.25rem;
+}
+
+/* Ensure consistent spacing between elements in chat */
+.chat-message .prose+.tool-invocation-wrapper,
+.tool-invocation-wrapper+.prose {
+  margin-top: 0.5rem;
+}
+
+/* Force button container position */
+.tool-invocation-wrapper+div[class*="mb-3"],
+.tool-invocation-wrapper+div[class*="mb-1"] {
+  margin-top: 0.25rem;
+}
+
+/* Ensure the sources and action buttons have the right spacing after tools */
+.chat-message>div>div>div:last-child>div.mb-1 {
+  margin-top: 0.25rem;
+}
+
+/* Fix spacing when tool is the last element */
+.chat-message-last .tool-invocation-wrapper:last-child {
+  margin-bottom: 0.5rem;
+}
+
+/* Hide raw JSON data during tool rendering */
+.hide-raw-json {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hide any raw JSON data that might appear during rendering */
+.hide-raw-json::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: inherit;
+  z-index: 2;
+  animation: fadeOut 0.3s forwards 0.1s;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* Additional fix to sanitize any raw JSON in text content */
+.prose p:has(> text):not(:has(+ *)),
+.prose div:has(> text) {
+  position: relative;
+  min-height: 1em;
+}
+
+.prose p:has(> text)::before,
+.prose div:has(> text)::before {
+  content: attr(data-sanitized-text, "");
+  display: block;
+}
+
+/* Hide any raw JSON patterns in regular text */
+span[class*="text-"],
+p[class*="text-"],
+div[class*="text-"] {
+  visibility: visible;
+}
+
+span[class*="text-"]::after,
+p[class*="text-"]::after,
+div[class*="text-"]::after {
+  content: "";
+  display: inline;
+  white-space: pre-wrap;
+}
+
+/* Hide known JSON patterns that might appear in text */
+[data-mcp-json-cleaned="true"] {
+  opacity: 1 !important;
+}
+
+.text-json-sanitized {
+  overflow: hidden;
+  position: relative;
+}
+
+/* Prevent raw MCP JSON from showing during render with specific patterns */
+.chat-message pre:empty,
+.chat-message p:empty {
+  display: none !important;
+}
+
+/* Hide JSON patterns that might be rendered temporarily */
+.chat-message p.tool-call-json,
+.chat-message p.raw-json-content,
+.chat-message p[data-content-type="json"] {
+  display: none !important;
+}
+
+/* High priority hiding for raw JSON in chat messages */
+.chat-message [hidden],
+.chat-message .hidden {
+  display: none !important;
+}
+
+/* Apply transformations to hide JSON patterns */
+.chat-message {
+  will-change: transform;
+  transform: translateZ(0);
+  transition: opacity 0.15s ease;
+}
+
+/* Alternative approach using JS-friendly selectors */
+.chat-message *:not(code):not(pre) {
+  transition: opacity 0.15s ease;
+}
+
+/* MCP tool box specific adjustments */
+.tool-invocation-wrapper {
+  position: relative;
+}
+
+/* Hide any raw tool call data while loading */
+.tool-invocation-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: inherit;
+  z-index: 5;
+  opacity: 1;
+  animation: toolFadeOut 0.3s forwards 0.15s;
+}
+
+@keyframes toolFadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* Ensure consistent spacing between tool and text */
+.tool-invocation-wrapper+p,
+.tool-invocation-wrapper+div {
+  margin-top: 0.75rem;
+}
+
+/* Ensure text content after tool invocation is visible */
+.tool-invocation-wrapper+.react-markdown,
+.tool-invocation-wrapper+.prose {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Ensure paragraph spacing in markdown content */
+.react-markdown p {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+
+/* Style for MCP tool explanation text */
+.explanation-text {
+  animation: fadeIn 0.3s ease-in-out;
+  position: relative;
+  border-left: 3px solid #FF6417 \!important;
+}
+
+.dark .explanation-text {
+  border-left: 3px solid #6BA5ED \!important;
+}
+
+/* At the end of the file, add this CSS */
+
+/* Enhanced mobile keyboard visibility fixes */
+body.keyboard-visible {
+  /* Prevent content from jumping when keyboard appears */
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  height: 100dvh;
+  /* Use dynamic viewport height */
+}
+
+/* Keep header visible when keyboard is open */
+body.keyboard-visible .header-container,
+body.keyboard-visible .fixed.top-0.z-\[60\],
+body.keyboard-visible .fixed.top-0.z-\[99\] {
+  position: absolute !important;
+  top: env(safe-area-inset-top, 0);
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  z-index: 200 !important;
+}
+
+/* Ensure header has transparent background in all modes */
+.header-container {
+  background-color: transparent !important;
+}
+
+/* Ensure header buttons have stronger visibility on mobile */
+@media (max-width: 767px) {
+
+  .header-container button,
+  .fixed.top-0.z-\[60\] button,
+  .fixed.top-0.z-\[99\] button {
+    background-color: rgba(255, 224, 208, 0.5) !important;
+  }
+
+  .dark .header-container button,
+  .dark .fixed.top-0.z-\[60\] button,
+  .dark .fixed.top-0.z-\[99\] button {
+    background-color: rgba(47, 47, 47, 0.5) !important;
+  }
+}
+
+/* Chrome for Android specific fixes */
+@supports (-webkit-appearance: none) and (not (-webkit-touch-callout: none)) {
+  /* Chrome-specific styles for Android */
+  @media (max-width: 767px) {
+
+    .header-container,
+    .fixed.top-0.z-\[60\],
+    .fixed.top-0.z-\[99\] {
+      /* Ensure buttons stay visible */
+      position: sticky !important;
+      top: 0 !important;
+      z-index: 200 !important;
+    }
+
+    /* Fix for header reappearing after keyboard is dismissed */
+    .keyboard-visible-transition {
+      transition: transform 0.3s ease;
+    }
+  }
+}
+
+/* iOS Safari fixes */
+@supports (-webkit-touch-callout: none) {
+
+  .header-container,
+  .fixed.top-0.z-\[60\],
+  .fixed.top-0.z-\[99\] {
+    position: sticky;
+    top: 0;
+    z-index: 200;
+  }
+
+  /* Prevent content from being pushed up too far when keyboard opens */
+  body.keyboard-visible .chat-message-container {
+    max-height: calc(100dvh - 60px);
+  }
+}
+
+/* Enhanced Mobile Optimizations */
+
+/* Ensure proper touch targets on mobile devices */
+/* Only apply on actual touch devices, not desktop browsers at narrow widths */
+@media (max-width: 640px) and (pointer: coarse) {
+
+  /* Minimum touch target size for mobile accessibility */
+  button,
+  input,
+  select,
+  textarea,
+  [role="button"],
+  .clickable {
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation;
+  }
+
+  /* Improve text input on mobile */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  textarea {
+    font-size: 16px !important;
+    /* Prevent zoom on iOS */
+    border-radius: 8px;
+    padding: 12px;
+  }
+
+  /* Mobile-specific layout improvements */
+  .mobile-full-width {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+  }
+
+  /* Safe area respecting containers */
+  .mobile-safe-container {
+    padding-left: max(16px, var(--safe-area-inset-left, 0px));
+    padding-right: max(16px, var(--safe-area-inset-right, 0px));
+    padding-top: max(16px, var(--safe-area-inset-top, 0px));
+    padding-bottom: max(16px, var(--safe-area-inset-bottom, 0px));
+  }
+
+  /* Prevent horizontal scrolling */
+  html,
+  body {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Enhanced mobile keyboard handling */
+  body.keyboard-visible {
+    position: fixed;
+    width: 100%;
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  /* Optimize scrolling on mobile */
+  .mobile-scroll {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+
+  /* Mobile-specific spacing */
+  .mobile-spacing {
+    margin: 8px 0;
+    padding: 8px 16px;
+  }
+
+  /* Better mobile text rendering */
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Mobile-friendly focus states */
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: none;
+  }
+
+  /* Prevent content shifts during loading */
+  .mobile-stable {
+    contain: layout style size;
+  }
+}
+
+/* iOS-specific optimizations */
+@supports (-webkit-touch-callout: none) {
+
+  /* iOS Safari viewport handling */
+  html,
+  body {
+    height: -webkit-fill-available;
+    height: 100dvh;
+  }
+
+  /* Prevent iOS rubber-band scrolling where not needed */
+  .prevent-bounce {
+    overscroll-behavior: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* iOS safe area handling */
+  @media (max-width: 640px) {
+    .ios-safe-top {
+      padding-top: max(20px, var(--safe-area-inset-top, 0px));
+    }
+
+    .ios-safe-bottom {
+      padding-bottom: max(20px, var(--safe-area-inset-bottom, 0px));
+    }
+
+    /* iOS keyboard handling */
+    body.keyboard-visible {
+      height: -webkit-fill-available;
+      position: fixed;
+      overflow: hidden;
+    }
+  }
+}
+
+/* Android-specific optimizations */
+@supports (not (-webkit-touch-callout: none)) and (-webkit-appearance: none) {
+  /* Android Chrome optimizations */
+  @media (max-width: 640px) {
+
+    /* Better scrolling performance on Android */
+    .android-scroll {
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
+      will-change: scroll-position;
+    }
+
+    /* Android keyboard handling */
+    body.keyboard-visible {
+      height: 100dvh;
+      position: fixed;
+      overflow: hidden;
+    }
+
+    /* Android-specific safe area fallbacks */
+    .android-safe-bottom {
+      padding-bottom: max(16px, var(--safe-area-inset-bottom, 0px));
+    }
+  }
+}
+
+/* Chat input mobile enhancements */
+@media (max-width: 640px) {
+  .chat-input-mobile {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    background: rgba(255, 241, 229, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(212, 192, 182, 0.3);
+    padding: 8px 16px calc(var(--safe-area-inset-bottom, 0px) + 8px) 16px;
+    min-height: 80px;
+    box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .dark .chat-input-mobile {
+    background: rgba(33, 33, 33, 0.95);
+    border-top: 1px solid rgba(66, 66, 66, 0.3);
+    box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Mobile chat content padding to account for fixed input */
+  .mobile-chat-content {
+    padding-bottom: calc(100px + var(--safe-area-inset-bottom, 0px));
+  }
+
+  /* Ensure main content has bottom padding on mobile to account for fixed input */
+  .main-content-mobile-padding {
+    padding-bottom: calc(80px + var(--safe-area-inset-bottom, 0px)) !important;
+  }
+
+  /* CRITICAL FIX: Remove bottom padding when chat input is present to ensure flush positioning */
+  .main-content-mobile-padding:has(.chat-input-container) {
+    padding-bottom: calc(80px + var(--safe-area-inset-bottom, 0px)) !important;
+  }
+
+  /* Alternative selector for browsers that don't support :has() */
+  body:has(.chat-input-container) .main-content-mobile-padding {
+    padding-bottom: calc(80px + var(--safe-area-inset-bottom, 0px)) !important;
+  }
+
+  /* Force mobile viewport to be flush with screen bottom */
+  body,
+  html {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Mobile-specific bottom positioning fix */
+  @supports (-webkit-touch-callout: none) {
+
+    /* iOS Safari - force flush bottom */
+    html,
+    body {
+      margin-bottom: 0 !important;
+      padding-bottom: 0 !important;
+    }
+  }
+
+  /* Mobile message styling */
+  .mobile-message {
+    margin: 16px 12px;
+    max-width: calc(100vw - 24px);
+  }
+
+  /* Mobile typography improvements */
+  .mobile-text {
+    font-size: 16px;
+    line-height: 1.5;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+
+  /* Ensure welcome screen adjusts for mobile fixed input and suggestion buttons */
+  .mobile-welcome-container {
+    padding-bottom: calc(160px + var(--safe-area-inset-bottom, 0px));
+    min-height: calc(100dvh - 160px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 20vh;
+  }
+
+  /* CRITICAL: Increase bottom padding for message wrapper on mobile to ensure action buttons
+     are visible above the fixed chat input. Base 120px + 80px extra = 200px minimum */
+  .mobile-message-wrapper {
+    padding-bottom: calc(200px + var(--safe-area-inset-bottom, 0px)) !important;
+  }
+
+  /* iOS Safari - needs slightly more padding than default for proper spacing */
+  @supports (-webkit-touch-callout: none) {
+    .mobile-message-wrapper {
+      padding-bottom: calc(180px + env(safe-area-inset-bottom, 0px)) !important;
+    }
+
+    /* iOS Safari scroll button - positioned closer to chat input */
+    .scroll-indicator-down {
+      top: -48px !important;
+    }
+
+    /* Hide duplicate disclaimer from page.tsx on iOS Safari */
+    .ios-hidden {
+      display: none !important;
+    }
+  }
+
+  /* Chrome iOS specific - needs same padding as Safari */
+  .chrome-ios .mobile-message-wrapper {
+    padding-bottom: calc(250px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+}
+
+/* Mobile textarea specific styles */
+@media (max-width: 640px) {
+  .mobile-textarea {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    resize: none !important;
+    touch-action: pan-y !important;
+  }
+}
+
+/* Responsive design utilities */
+@media (max-width: 480px) {
+
+  /* Small mobile devices */
+  .small-mobile-hide {
+    display: none !important;
+  }
+
+  .small-mobile-text {
+    font-size: 14px !important;
+  }
+
+  .small-mobile-spacing {
+    margin: 4px 0 !important;
+    padding: 4px 8px !important;
+  }
+}
+
+/* Landscape mobile optimizations */
+@media (max-width: 640px) and (orientation: landscape) {
+
+  /* Landscape mobile adjustments */
+  .landscape-mobile-compact {
+    padding: 4px 8px;
+    margin: 2px 0;
+  }
+
+  /* Reduced spacing in landscape */
+  .landscape-mobile .chat-input-mobile {
+    min-height: 60px;
+    padding: 4px 16px calc(var(--safe-area-inset-bottom, 0px) + 4px) 16px;
+  }
+}
+
+/* High DPI mobile screens */
+@media (max-width: 640px) and (-webkit-min-device-pixel-ratio: 2) {
+
+  /* Crisp rendering on high DPI displays */
+  * {
+    -webkit-font-smoothing: subpixel-antialiased;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+}
+
+/* Accessibility improvements for mobile */
+@media (max-width: 640px) {
+
+  /* Larger touch targets for accessibility */
+  .accessible-mobile button,
+  .accessible-mobile [role="button"] {
+    min-height: 48px;
+    min-width: 48px;
+    padding: 12px;
+  }
+
+  /* Better contrast for mobile */
+  .mobile-high-contrast {
+    border: 2px solid;
+    background: contrast;
+  }
+
+  /* Reduced motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-no-animation * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* Performance optimizations for mobile */
+@media (max-width: 640px) {
+
+  /* GPU acceleration for smooth scrolling */
+  .mobile-gpu-accelerated {
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    will-change: transform;
+  }
+
+  /* Optimize repaints */
+  .mobile-optimized {
+    contain: layout style paint;
+    content-visibility: auto;
+  }
+}
+
+/* Ensure all Radix UI portals and dropdowns render above everything */
+[data-radix-popper-content-wrapper] {
+  z-index: 10000 !important;
+}
+
+/* Ensure dropdown menus are above everything */
+[role="menu"] {
+  z-index: 10000 !important;
+}
+
+/* Fix for dropdown menu portal rendering */
+[data-radix-portal] {
+  z-index: 10000 !important;
+}
+
+/* Ensure all Radix UI portals and dropdowns render above everything */
+[data-radix-popper-content-wrapper] {
+  z-index: 10000 !important;
+}
+
+/* Ensure dropdown menus are above everything */
+[role="menu"] {
+  z-index: 10000 !important;
+}
+
+/* Ensure tooltips are above everything */
+[role="tooltip"] {
+  z-index: 10001 !important;
+}
+
+/* Fix for header button tooltips */
+.header-container .group>div.pointer-events-none {
+  z-index: 10001 !important;
+}
+
+/* Ensure header button tooltips are visible */
+.group>div.pointer-events-none.opacity-0.group-hover\:opacity-100 {
+  z-index: 10001 !important;
+}
+
+/* MCP Modal Close Button Fix - Matching Document Dashboard sizes */
+.mcp-modal-close-btn {
+  width: 32px !important;
+  /* w-8 */
+  height: 32px !important;
+  /* h-8 */
+  min-width: 32px !important;
+  min-height: 32px !important;
+  max-width: 32px !important;
+  max-height: 32px !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+}
+
+/* Desktop/larger screens */
+@media (min-width: 1024px) {
+  .mcp-modal-close-btn {
+    width: 28px !important;
+    /* lg:w-7 */
+    height: 28px !important;
+    /* lg:h-7 */
+    min-width: 28px !important;
+    min-height: 28px !important;
+    max-width: 28px !important;
+    max-height: 28px !important;
+  }
+}
+
+.mcp-modal-close-icon {
+  width: 16px !important;
+  /* h-4 w-4 */
+  height: 16px !important;
+  min-width: 16px !important;
+  min-height: 16px !important;
+}
+
+/* Desktop/larger screens */
+@media (min-width: 1024px) {
+  .mcp-modal-close-icon {
+    width: 14px !important;
+    /* lg:h-3.5 lg:w-3.5 */
+    height: 14px !important;
+    min-width: 14px !important;
+    min-height: 14px !important;
+  }
+}
+
+
+
+/* Global Chromium button click area fixes */
+@supports (-webkit-appearance: none) {
+  button {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  /* Force proper hit detection */
+  button:not([disabled]) {
+    position: relative;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+
+  /* Ensure icons dont interfere with click detection */
+  button svg {
+    pointer-events: none;
+  }
+}
+
+/* Comet browser and Chromium-specific fixes */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  button {
+    will-change: auto;
+    contain: layout;
+    -webkit-backface-visibility: visible;
+    backface-visibility: visible;
+  }
+
+
+}
+
+/* Safari iOS specific - Reduce bottom spacing for chat container */
+@supports (-webkit-touch-callout: none) {
+
+  /* Target the wrapper we added in step 1 */
+  .mobile-chat-container.pb-safe,
+  .mobile-chat-input-wrapper.pb-safe {
+    padding-bottom: 12px !important;
+  }
+
+  /* Aggressively collapse the disclaimer zone padding on Safari */
+  .mobile-disclaimer-zone {
+    padding-bottom: 6px !important;
+    padding-top: 8px !important;
+  }
+
+  .mobile-disclaimer-zone p {
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1.2 !important;
+  }
+}

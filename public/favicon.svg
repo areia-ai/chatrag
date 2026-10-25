@@ -1,0 +1,26 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="faviconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4080FF" />
+      <stop offset="50%" stop-color="#FFB001" />
+      <stop offset="100%" stop-color="#F44335" />
+    </linearGradient>
+  </defs>
+  
+  <!-- 
+    The <g> element with the 'transform' attribute scales the entire icon down to 85% 
+    of its size and translates it to be perfectly centered, preventing clipping.
+  -->
+  <g transform="translate(2.4, 2.4) scale(0.85)">
+    <path 
+      d="M2,4 h24 a4,4 0 0 1 4,4 v14 a4,4 0 0 1 -4,4 h-10 l-5,5 l-5,-5 h-4 a4,4 0 0 1 -4,-4 v-14 a4,4 0 0 1 4,-4 z" 
+      fill="#4080FF"
+      style="fill: url(#faviconGrad)"
+    />
+    
+    <!-- These lines are inside the <g> so they are scaled and positioned correctly -->
+    <rect x="6" y="11" width="16" height="2.5" rx="1.25" fill="#333333" opacity="0.9"/>
+    <rect x="6" y="15.5" width="12" height="2.5" rx="1.25" fill="#333333" opacity="0.9"/>
+    <rect x="6" y="20" width="14" height="2.5" rx="1.25" fill="#333333" opacity="0.9"/>
+  </g>
+</svg> 

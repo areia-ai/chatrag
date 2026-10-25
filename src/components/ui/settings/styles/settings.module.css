@@ -1,0 +1,192 @@
+/* Settings Modal Styles - Optimized CSS Module */
+
+/* Base dialog styles */
+.settingsDialog {
+  background-color: #FFF1E5 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  will-change: transform;
+}
+
+:global(.dark) .settingsDialog {
+  background-color: #212121 !important;
+}
+
+/* Close button with optimized positioning */
+.closeButton {
+  position: absolute !important;
+  right: 1rem !important;
+  top: 1rem !important;
+  z-index: 100 !important;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+
+  /* Performance optimizations */
+  contain: layout style;
+  will-change: background-color, transform;
+}
+
+/* Tab navigation */
+.tabButton {
+  transition: background-color 0.15s ease;
+  will-change: background-color;
+}
+
+.tabButton:hover {
+  transform: translateZ(0);
+  /* Force GPU acceleration */
+}
+
+/* Content area scrolling optimization */
+.contentArea {
+  overflow-y: scroll !important;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+
+  /* Optimize scrolling performance */
+  will-change: scroll-position;
+
+  /* Force scrollbar to always be visible */
+  scrollbar-gutter: stable;
+}
+
+/* Always-visible scrollbar styling */
+.contentArea::-webkit-scrollbar {
+  width: 8px;
+  background-color: transparent;
+}
+
+.contentArea::-webkit-scrollbar-track {
+  background-color: #f3f4f6;
+  border-radius: 10px;
+}
+
+:global(.dark) .contentArea::-webkit-scrollbar-track {
+  background-color: rgba(31, 41, 55, 0.3);
+}
+
+.contentArea::-webkit-scrollbar-thumb {
+  background-color: #d1d5db;
+  border-radius: 10px;
+  transition: background-color 0.2s ease;
+}
+
+:global(.dark) .contentArea::-webkit-scrollbar-thumb {
+  background-color: #4b5563;
+}
+
+.contentArea::-webkit-scrollbar-thumb:hover {
+  background-color: #9ca3af;
+}
+
+:global(.dark) .contentArea::-webkit-scrollbar-thumb:hover {
+  background-color: #6b7280;
+}
+
+/* Tab content optimization */
+.tabContent {
+  contain: layout style paint;
+}
+
+/* Sidebar optimization */
+.sidebar {
+  contain: layout style;
+}
+
+/* GPU acceleration for transforms - removed transform to avoid conflicts with centering */
+.accelerated {
+  backface-visibility: hidden;
+  perspective: 1000px;
+  will-change: transform;
+}
+
+/* Animation performance */
+@media (prefers-reduced-motion: reduce) {
+  .settingsDialog :global(*) {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High performance mode for low-end devices */
+@media (max-width: 768px) {
+  .settingsDialog {
+    /* Reduce shadows on mobile */
+    box-shadow: none !important;
+
+    /* Safe area insets for iOS - ensures content doesn't go under notch/status bar */
+    /* Using env() for safe-area-inset which modern iOS browsers support */
+    padding-top: env(safe-area-inset-top, 0);
+
+    /* Use auto height on mobile to fit content - increased to 92vh for i18n */
+    max-height: 92vh !important;
+    height: auto !important;
+  }
+
+  /* Ensure sidebar doesn't clip on mobile */
+  .sidebar {
+    overflow-y: visible;
+    flex-shrink: 0;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  /* Improve scrollable tab area on mobile */
+  .sidebar nav {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-right: 8px;
+    margin-right: -8px;
+  }
+
+  .sidebar nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Content area mobile improvements - extra bottom padding for safe area */
+  .contentArea {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-bottom: 40px !important;
+  }
+
+  /* Mobile i18n - flex-based tabs that allow text wrapping */
+  .sidebar nav {
+    /* Flex layout with wrapping */
+    display: flex !important;
+    flex-wrap: wrap !important;
+  }
+
+  .sidebar nav button {
+    /* Allow text to wrap within grid cells */
+    word-break: break-word;
+    hyphens: auto;
+  }
+
+  /* Ensure button text can wrap for long i18n strings */
+  .sidebar nav button span {
+    /* Allow wrapping for long translations */
+    white-space: normal !important;
+    line-height: 1.2;
+  }
+
+  /* Content labels - ensure they don't clip for i18n */
+  .tabContent label,
+  .tabContent h4,
+  .tabContent p {
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+}
+
+/* Utility class to hide scrollbars while allowing scroll */
+:global(.scrollbar-hide) {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+:global(.scrollbar-hide)::-webkit-scrollbar {
+  display: none;
+}
