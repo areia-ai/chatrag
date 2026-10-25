@@ -1515,7 +1515,7 @@ A: No! The codebase is deployment-mode aware and handles both automatically.
 1. **Check Documentation First**: Review this guide and linked documents
 2. **Troubleshooting Section**: See above for common issues
 3. **GitHub Issues**: https://github.com/areia-ai/chatrag/issues
-4. **Discord Community**: https://discord.gg/QYESpZvU
+4. **Discord Community**: https://discord.gg/nneEjqteT
 
 ### Contributing
 

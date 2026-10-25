@@ -17,7 +17,7 @@
     <strong>WhatsApp Ready</strong>
   </p>
 
-  [📚 Docs](#-documentation) • [🚀 Deploy](#-quick-start) • [💬 Discord](https://discord.gg/QYESpZvU)
+  [📚 Docs](#-documentation) • [🚀 Deploy](#-quick-start) • [💬 Discord](https://discord.gg/nneEjqteT)
 </div>
 
 ---
@@ -744,7 +744,7 @@ The license covers the code, not the ChatRAG name or logo. If you publish or sel
 - 📖 [Developer Guide](AGENTS.md)
 - 📘 [Deployment Modes](README_DEPLOYMENT_MODES.md)
 - 🐛 [GitHub Issues](https://github.com/areia-ai/chatrag/issues)
-- 💬 [Discord Community](https://discord.gg/QYESpZvU)
+- 💬 [Discord Community](https://discord.gg/nneEjqteT)
 - 📧 [Contact](mailto:hello@chatrag.ai)
 
 ## 🙏 Acknowledgments
@@ -766,7 +766,7 @@ Built with amazing technologies:
   <h3><img src="./public/chatrag-logo.png" alt="ChatRAG" width="25" style="vertical-align: middle;"> Ready to Build Your AI Chatbot?</h3>
   <p><strong>Get started in minutes with our visual configuration UI</strong></p>
 
-  [📖 Read Docs](#-documentation) • [💬 Join Discord](https://discord.gg/QYESpZvU)
+  [📖 Read Docs](#-documentation) • [💬 Join Discord](https://discord.gg/nneEjqteT)
 
   <br>
 

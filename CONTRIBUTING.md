@@ -18,6 +18,8 @@ the work in.
 ## Where things go
 
 - **Issues** are for bugs, setup trouble, and feature proposals.
+- **[Discord](https://discord.gg/nneEjqteT)** is for questions, help from other
+  builders, and showing what you made.
 - **Security** reports go to the address in [SECURITY.md](SECURITY.md), not a
   public issue.
 - **Forks** are welcome, including commercial ones. The MIT License covers
